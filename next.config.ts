@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: process.env.BUILD_TARGET === 'github' ? 'export' : undefined,
   trailingSlash: true,
   images: { unoptimized: true },
 };

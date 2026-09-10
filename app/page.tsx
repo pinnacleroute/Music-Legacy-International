@@ -1,77 +1,52 @@
 import Link from 'next/link';
-import { ArrowRight, BriefcaseBusiness, Building2, CalendarDays, Crown, Headphones, Lightbulb, Mic2, Network, Sparkles, Target, UserRoundCheck, Users } from 'lucide-react';
+import { ArrowRight, Building2, CalendarDays, Check, ChevronRight, CircleDollarSign, Crown, Guitar, Headphones, Lightbulb, MapPin, Mic2, Network, Radio, Sparkles, Star, Target, TrendingUp, UserRoundCheck, Users, Zap } from 'lucide-react';
 
 const audiences = [
-  { icon: Mic2, title: 'Artist / Musician', text: 'Find stages, collaborators, representation, and the people who can move your music forward.' },
-  { icon: Network, title: 'Industry Professional', text: 'Discover talent, grow your network, and build meaningful industry relationships.' },
-  { icon: Building2, title: 'Business / Venue', text: 'Connect with performers, creative services, audiences, and trusted partners.' },
-  { icon: Headphones, title: 'Fan / Audiophile', text: 'Discover new voices, live experiences, and the stories shaping music culture.' },
+  { icon: Mic2, label: 'Create & perform', title: 'Artist / Musician', text: 'Find stages, collaborators, representation, and the people who can move your music forward.', accent: 'blue' },
+  { icon: Network, label: 'Shape careers', title: 'Industry Professional', text: 'Discover talent, grow your network, and build meaningful industry relationships.', accent: 'violet' },
+  { icon: Building2, label: 'Create opportunity', title: 'Business / Venue', text: 'Connect with performers, creative services, audiences, and trusted partners.', accent: 'gold' },
+  { icon: Headphones, label: 'Discover & support', title: 'Fan / Audiophile', text: 'Find new voices, live experiences, and the stories shaping music culture.', accent: 'cyan' },
 ];
 const features = [
-  {icon:Target,title:'Discover Opportunities',text:'See the gigs, roles, collaborations, and services most relevant to your ambitions.'},
-  {icon:Users,title:'Connect with Industry Professionals',text:'Build relationships with people who understand your sound, goals, and market.'},
-  {icon:CalendarDays,title:'Join Events & Live Sessions',text:'Learn, perform, and meet your next collaborator in spaces designed for connection.'},
-  {icon:Crown,title:'Access Premium Career Tools',text:'Turn insight into action with deeper discovery, visibility, and introductions.'},
-  {icon:Lightbulb,title:'Grow Through Recommendations',text:'Get personal next steps shaped by your profile, goals, skills, and activity.'},
+  {icon:Target,title:'The right opportunity, sooner',text:'See gigs, collaborations, services, and career openings tailored to your direction.'},
+  {icon:Users,title:'Relationships that lead somewhere',text:'Meet professionals, talent, venues, and partners aligned with what you are building.'},
+  {icon:CalendarDays,title:'Rooms where progress happens',text:'Join live sessions, showcases, and conversations designed for genuine connection.'},
+  {icon:Crown,title:'More visibility. More access.',text:'Unlock premium discovery, curated introductions, and tools that amplify your work.'},
+  {icon:Lightbulb,title:'A path that learns with you',text:'Turn your profile, goals, and activity into clear, personalized next steps.'},
+];
+const actionCards = [
+  {icon:Mic2,label:'PERFORMANCE',title:'Live Blues Guitarist Needed',meta:'Brooklyn · Paid',match:'92% match',cta:'View opportunity'},
+  {icon:Users,label:'CONNECTION',title:'Meet Sarah Monroe',meta:'Booking Agent · New York',match:'94% fit',cta:'View connection'},
+  {icon:Radio,label:'LIVE SESSION',title:'Inside the Music Business',meta:'Online · May 14',match:'For your goals',cta:'Reserve a place'},
 ];
 
 export default function Home() {
-  return (
-    <main className="landing-page min-h-screen overflow-hidden">
-      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 md:px-10 lg:px-14">
-        <Link href="/" className="brand-mark"><span className="brand-emblem">ML</span><span>Music Legacy <b>International</b></span></Link>
-        <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
-          <a href="#journey">How it works</a><Link href="/opportunities">Opportunities</Link><Link href="/community">Community</Link><Link href="/membership">Membership</Link>
-        </div>
-        <Link href="/dashboard" className="button button-small button-outline">Member access</Link>
-      </nav>
+  return <main className="home-page">
+    <header className="home-nav-wrap"><nav className="home-nav">
+      <Link href="/" className="home-brand"><span className="home-logo">ML</span><span>Music Legacy <b>International</b></span></Link>
+      <div className="home-links"><a href="#path">How it works</a><Link href="/opportunities">Opportunities</Link><Link href="/community">Community</Link><Link href="/membership">Membership</Link></div>
+      <div className="home-nav-actions"><Link href="/dashboard" className="nav-signin">Member access</Link><Link href="/dashboard" className="nav-cta">Enter Music Legacy <ArrowRight/></Link></div>
+    </nav></header>
 
-      <section className="relative mx-auto grid min-h-[640px] max-w-[1440px] items-center gap-12 px-5 pb-24 pt-16 md:px-10 lg:grid-cols-[1.05fr_.95fr] lg:px-14 lg:pt-10">
-        <div className="hero-glow" />
-        <div className="relative z-10">
-          <div className="eyebrow"><Sparkles size={14} /> The future of music community</div>
-          <h1 className="mt-6 max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.045em] text-white md:text-7xl xl:text-[86px]">Where Music, <span>Opportunity,</span> and Community Connect.</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">Build your network, discover opportunities, and move your career forward with a community built for music, arts, and entertainment.</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/dashboard" className="button button-primary">Enter Music Legacy <ArrowRight size={18} /></Link>
-            <Link href="/opportunities" className="button button-ghost">Explore Opportunities</Link>
-          </div>
-          <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-slate-400">
-            <span><b className="text-white">12K+</b> creative members</span><span className="h-1 w-1 rounded-full bg-[#dab65c]"/><span><b className="text-white">48</b> industry communities</span><span className="h-1 w-1 rounded-full bg-[#dab65c]"/><span><b className="text-white">1,200+</b> connections made</span>
-          </div>
-        </div>
+    <section className="home-hero"><div className="home-hero-aura"/><div className="stage-beam beam-one"/><div className="stage-beam beam-two"/>
+      <div className="hero-copy"><div className="home-eyebrow"><span><Radio/></span> The future of music opportunity</div><h1>Where Music, <em>Opportunity,</em> and Community Connect.</h1><p>Build your network, discover the right opportunities, and move your career or business forward with a community created for music, arts, and entertainment.</p><div className="hero-actions"><Link href="/dashboard" className="home-button primary">Enter Music Legacy <ArrowRight/></Link><Link href="/opportunities" className="home-button secondary">Explore Opportunities <ChevronRight/></Link></div><div className="hero-proof"><div className="proof-faces"><i>AC</i><i>SM</i><i>ML</i><i>+12K</i></div><p><span><Star fill="currentColor"/> Built for the people moving music forward</span>Artists, professionals, venues, businesses, and fans—all in one connected ecosystem.</p></div></div>
+      <div className="hero-visual"><div className="hero-stage"><div className="stage-rings"><i/><i/><i/></div><div className="stage-artist"><span/><Guitar/></div><div className="crowd"><i/><i/><i/><i/><i/><i/><i/></div></div><div className="smart-stack"><div className="smart-head"><div><span className="gold-label"><Sparkles/> RECOMMENDED FOR YOU</span><h2>Your next move, surfaced.</h2></div><span className="live-dot">LIVE</span></div><div className="featured-match"><div className="match-art"><Mic2/><span>PERFORMANCE</span></div><div className="match-copy"><div><span>TOP OPPORTUNITY</span><b>92% MATCH</b></div><h3>Live Blues Guitarist Needed</h3><p><MapPin/> Brooklyn, NY <i/> <CircleDollarSign/> Paid</p><Link href="/opportunities">View match <ArrowRight/></Link></div></div><div className="smart-secondary"><div className="person-match"><span className="match-avatar">SM</span><p><small>SUGGESTED CONNECTION</small><b>Sarah Monroe</b><em>Booking Agent · New York</em></p><span>94%</span></div><div className="event-match"><CalendarDays/><p><small>UPCOMING FOR YOU</small><b>Artist Networking Session</b><em>May 18 · Brooklyn</em></p><ArrowRight/></div></div></div></div>
+    </section>
 
-        <div className="relative z-10 mx-auto w-full max-w-[600px]">
-          <div className="orbit-card relative">
-            <div className="mb-7 flex items-center justify-between"><div><p className="text-xs font-semibold uppercase tracking-[.18em] text-blue-300">Your path, personalized</p><h2 className="mt-2 text-2xl font-semibold">A better next move starts here.</h2></div><div className="pulse-dot"><span /></div></div>
-            <div className="space-y-3">
-              <div className="journey-row"><span>01</span><div><b>Tell us who you are</b><p>Artist · New York · Blues & Soul</p></div><div className="status-check">✓</div></div>
-              <div className="journey-row active"><span>02</span><div><b>Share where you want to go</b><p>More performances · Industry connections</p></div><div className="sound-bars"><i/><i/><i/><i/></div></div>
-              <div className="journey-row"><span>03</span><div><b>Meet your best matches</b><p>People, opportunities, events, and resources</p></div><ArrowRight size={18} className="text-[#dab65c]"/></div>
-            </div>
-            <div className="mt-6 rounded-2xl border border-blue-400/20 bg-blue-500/10 p-4"><div className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#dab65c] text-[#08142e]"><BriefcaseBusiness size={19}/></div><div className="flex-1"><p className="text-sm font-semibold">Live Blues Guitarist Needed</p><p className="mt-1 text-xs text-slate-400">Brooklyn · Paid · 92% match</p></div><span className="match-pill">Top match</span></div></div>
-          </div>
-        </div>
-      </section>
+    <section className="metrics-wrap"><div className="metrics-strip"><p><span>Built on connection.</span> Designed for forward motion.</p><div><Users/><strong>12K+</strong><span>creative members</span></div><i/><div><Network/><strong>48</strong><span>industry communities</span></div><i/><div><Zap/><strong>1,200+</strong><span>connections made</span></div></div></section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-28 md:px-10 lg:px-14">
-        <div className="mb-8 flex items-end justify-between"><div><p className="section-kicker">Find your place</p><h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">Built for every side of the industry.</h2></div><p className="hidden max-w-sm text-right text-sm leading-6 text-slate-400 md:block">One connected community. Different paths, goals, and possibilities.</p></div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{audiences.map(({icon: Icon,title,text},i)=><Link href="/dashboard" className="audience-card group" key={title}><div className="flex items-center justify-between"><span className="audience-icon"><Icon size={22}/></span><span className="text-xs text-slate-500">0{i+1}</span></div><h3>{title}</h3><p>{text}</p><span className="card-link">Explore <ArrowRight size={15}/></span></Link>)}</div>
-      </section>
+    <section id="path" className="path-section home-section"><div className="path-intro"><span className="section-tag">YOUR PATH, PERSONALIZED</span><h2>Music moves differently when the <em>right next step</em> finds you.</h2><p>Music Legacy learns who you are and where you want to go—then brings the people, opportunities, and experiences most likely to help you advance into focus.</p><div className="path-signals"><span><Check/> Your profile</span><span><Check/> Your ambitions</span><span><Check/> Your activity</span></div><Link href="/bridging">Explore the Bridging Engine <ArrowRight/></Link></div><div className="guided-panel"><div className="guided-flow"><div className="guided-line"/>{[['01','Tell us who you are','Artist · New York · Blues & Soul',UserRoundCheck],['02','Share where you want to go','More performances · Stronger connections',Target],['03','Meet your best matches','People · Opportunities · Events · Services',Sparkles]].map(([n,title,text,Icon],i)=>{const StepIcon=Icon as typeof Target;return <div className={`guided-step step-${i+1}`} key={String(n)}><span><StepIcon/></span><div><small>STEP {String(n)}</small><b>{String(title)}</b><p>{String(text)}</p></div>{i<2&&<Check/>}</div>})}</div><div className="path-featured"><div className="path-featured-top"><span><Sparkles/> YOUR TOP MATCH</span><b>92%</b></div><div className="path-featured-body"><span><Mic2/></span><div><small>LIVE PERFORMANCE · FEATURED</small><h3>Live Blues Guitarist Needed</h3><p><MapPin/> Brooklyn, NY <i/> <CircleDollarSign/> Paid</p></div></div><div className="path-featured-bottom"><p><b>Why this match?</b> Your genre, location, skills, and current goals align.</p><Link href="/opportunities">View Match <ArrowRight/></Link></div></div></div></section>
 
-      <section className="needs-section">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 lg:px-14">
-          <p className="section-kicker">More than a network</p><h2 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">Built Around What You Need</h2>
-          <div className="feature-grid">{features.map(({icon:Icon,title,text},i)=><div className="feature-card" key={title}><span className="feature-number">0{i+1}</span><Icon/><h3>{title}</h3><p>{text}</p></div>)}</div>
-        </div>
-      </section>
+    <section className="audience-section"><div className="home-section"><div className="section-heading"><div><span className="section-tag">ONE INDUSTRY. MANY PATHS.</span><h2>Built for every side of the industry.</h2></div><p>Whether you create, connect, open doors, or champion the culture—Music Legacy gives you a place to move forward.</p></div><div className="audience-grid">{audiences.map(({icon:Icon,label,title,text,accent},i)=><Link href="/dashboard" className={`audience-tile ${accent}`} key={title}><div className="tile-top"><span className="tile-icon"><Icon/></span><small>0{i+1}</small></div><span className="tile-label">{label}</span><h3>{title}</h3><p>{text}</p><span className="tile-link">Find your path <ArrowRight/></span></Link>)}</div></div></section>
 
-      <section id="journey" className="journey-section mx-auto max-w-[1440px] px-5 py-28 md:px-10 lg:px-14">
-        <div><p className="section-kicker">A path made personal</p><h2>Your Journey</h2><p>We turn what you share into clearer connections, better-fit opportunities, and meaningful next steps.</p><Link href="/bridging" className="button button-primary">See your Music Legacy path <ArrowRight size={17}/></Link></div>
-        <div className="journey-map">{[['01','Create Profile',UserRoundCheck],['02','Tell Us Your Goals',Target],['03','Get Matched',Sparkles],['04','Connect',Network],['05','Advance',ArrowRight]].map(([n,label,Icon],i)=>{const JourneyIcon=Icon as typeof Target;return <div className="journey-step" key={String(label)}><span>{String(n)}</span><i><JourneyIcon/></i><b>{String(label)}</b>{i<4&&<ArrowRight className="journey-arrow"/>}</div>})}</div>
-      </section>
+    <section className="benefits-section home-section"><div className="benefits-intro"><span className="section-tag">BUILT AROUND WHAT YOU NEED</span><h2>Less searching.<br/><em>More momentum.</em></h2><p>A connected set of tools and experiences designed around real creative careers and music businesses—not another social feed to manage.</p><Link href="/dashboard" className="home-button secondary">Explore your dashboard <ArrowRight/></Link></div><div className="benefit-list">{features.map(({icon:Icon,title,text},i)=><article key={title}><span>0{i+1}</span><i><Icon/></i><div><h3>{title}</h3><p>{text}</p></div><ArrowRight/></article>)}</div></section>
 
-      <footer><div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-10 lg:px-14"><Link href="/" className="brand-mark"><span className="brand-emblem">ML</span><span>Music Legacy <b>International</b></span></Link><div className="footer-links"><Link href="/community">Community</Link><Link href="/opportunities">Opportunities</Link><Link href="/membership">Membership</Link><a href="#journey">About</a><a href="mailto:hello@musiclegacyinternational.com">Contact</a></div><p>© 2026 Music Legacy International</p></div></footer>
-    </main>
-  );
+    <section className="journey-band"><div className="home-section"><div className="journey-heading"><span className="section-tag">FROM PROFILE TO POSSIBILITY</span><h2>Your journey, with clearer direction.</h2><p>Five simple steps turn what you share into a living pathway for connection, opportunity, and growth.</p></div><div className="journey-track"><div className="track-line"/>{[['01','Create Profile','Show the industry who you are.',UserRoundCheck],['02','Tell Us Your Goals','Define what forward means to you.',Target],['03','Get Matched','See people and possibilities that fit.',Sparkles],['04','Connect','Build relationships with purpose.',Network],['05','Advance','Turn the next step into momentum.',TrendingUp]].map(([n,title,text,Icon],i)=>{const JourneyIcon=Icon as typeof Target;return <article className={i===4?'journey-final':''} key={String(n)}><span>{String(n)}</span><i><JourneyIcon/></i><h3>{String(title)}</h3><p>{String(text)}</p></article>})}</div><Link href="/bridging" className="journey-cta">See your Music Legacy path <ArrowRight/></Link></div></section>
+
+    <section className="action-section home-section"><div className="section-heading"><div><span className="section-tag">OPPORTUNITIES IN ACTION</span><h2>One community. Many ways forward.</h2></div><p>From the next live stage to the right industry relationship, your Music Legacy path keeps possibility within reach.</p></div><div className="action-grid">{actionCards.map(({icon:Icon,label,title,meta,match,cta},i)=><article className={`action-card action-${i+1}`} key={title}><div className="action-glow"/><div className="action-icon"><Icon/></div><span>{label}</span><h3>{title}</h3><p>{meta}</p><div><b>{match}</b><Link href={i===1?'/profile/sarah-monroe':i===2?'/community':'/opportunities'}>{cta}<ArrowRight/></Link></div></article>)}</div></section>
+
+    <section className="closing-vision"><div className="closing-inner"><span><Sparkles/></span><div><small>THE MUSIC LEGACY VISION</small><h2>More than a network.<br/>A place for the industry to <em>move forward together.</em></h2><p>For artists. For professionals. For businesses. For the people who believe music creates lasting connection, culture, and opportunity.</p></div><Link href="/dashboard" className="home-button gold">Enter Music Legacy <ArrowRight/></Link></div></section>
+
+    <footer className="home-footer"><div className="footer-main"><div className="footer-brand"><Link href="/" className="home-brand"><span className="home-logo">ML</span><span>Music Legacy <b>International</b></span></Link><p>Where music, opportunity, and community connect—and where every member can find a clearer way forward.</p><span>Music · Arts · Entertainment · Opportunity</span></div><div><h4>Explore</h4><Link href="/community">Community</Link><Link href="/opportunities">Opportunities</Link><Link href="/bridging">Your Path</Link><Link href="/membership">Membership</Link></div><div><h4>Connect</h4><Link href="/profile/sarah-monroe">Members</Link><a href="#path">How It Works</a><a href="mailto:hello@musiclegacyinternational.com">Contact</a><Link href="/dashboard">Member Access</Link></div><div className="footer-callout"><span><Crown/></span><h3>Ready for your next move?</h3><p>Discover what Music Legacy recommends for you.</p><Link href="/dashboard">Get started <ArrowRight/></Link></div></div><div className="footer-bottom"><p>© 2026 Music Legacy International. All rights reserved.</p><p>Built to move music forward.</p></div></footer>
+  </main>;
 }
