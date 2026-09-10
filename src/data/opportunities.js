@@ -1,0 +1,7 @@
+export const opportunities = [
+  { id: 1, title: 'CBS Studio Artist Showcase', organization: 'CBS Studio, New York', category: 'Performance', location: 'New York, NY', date: 'May 24', compensation: 'Paid', match: 95, description: 'A curated evening connecting independent artists with booking professionals and music media.' },
+  { id: 2, title: 'Live Blues Guitarist Needed', organization: 'The Harbor Room', category: 'Gig', location: 'Brooklyn, NY', date: 'May 18', compensation: '$450', match: 92, description: 'Seeking an expressive blues guitarist for a featured weekend set with an established house band.' },
+  { id: 3, title: 'Producer Seeking Female Vocalist', organization: 'Northline Sound', category: 'Collaboration', location: 'Remote', date: 'Rolling', compensation: 'Revenue share', match: 88, description: 'Soul-forward vocalist wanted for a polished three-track collaboration and release campaign.' },
+  { id: 4, title: 'Tour Photographer Needed', organization: 'Morrow Artist Co.', category: 'Crew', location: 'East Coast', date: 'Jun 2–16', compensation: 'Paid', match: 80, description: 'Document an emerging artist’s first regional tour across six cities.' },
+  { id: 5, title: 'Independent Artist Marketing Program', organization: 'Brightnote Creative', category: 'Services', location: 'Remote', date: 'Starts Jun 8', compensation: 'Member rate', match: 84, description: 'A four-week strategy program for artists preparing a release or live-show campaign.' },
+];
