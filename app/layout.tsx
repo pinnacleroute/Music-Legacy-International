@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://music-legacy-international.loyal-quail-3361.chatgpt.site'),
   title: 'Music Legacy International — Opportunity Meets Community',
   description: 'Build your network, discover music-industry opportunities, and move your career forward.',
+  icons: {
+    icon: '/assets/mli-logo.png',
+    shortcut: '/assets/mli-logo.png',
+    apple: '/assets/mli-logo.png',
+  },
   openGraph: {
     title: 'Music Legacy International — Opportunity Meets Community',
     description: 'Where music, opportunity, and community connect.',

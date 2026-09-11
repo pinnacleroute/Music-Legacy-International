@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, Building2, CalendarDays, Check, ChevronRight, CircleDollarSign, Crown, Guitar, Headphones, Lightbulb, MapPin, Mic2, Network, Radio, Sparkles, Star, Target, TrendingUp, UserRoundCheck, Users, Zap } from 'lucide-react';
+import { BrandLogo } from './_components/BrandLogo';
 
 const audiences = [
   { icon: Mic2, label: 'Create & perform', title: 'Artist / Musician', text: 'Find stages, collaborators, representation, and the people who can move your music forward.', accent: 'blue' },
@@ -23,7 +24,7 @@ const actionCards = [
 export default function Home() {
   return <main className="home-page">
     <header className="home-nav-wrap"><nav className="home-nav">
-      <Link href="/" className="home-brand"><span className="home-logo">ML</span><span>Music Legacy <b>International</b></span></Link>
+      <Link href="/" className="brand-logo-link home-brand"><BrandLogo className="brand-logo-header" priority /></Link>
       <div className="home-links"><a href="#path">How it works</a><Link href="/opportunities">Opportunities</Link><Link href="/community">Community</Link><Link href="/membership">Membership</Link></div>
       <div className="home-nav-actions"><Link href="/dashboard" className="nav-signin">Member access</Link><Link href="/onboarding" className="nav-cta">Find My MLI Path <ArrowRight/></Link></div>
     </nav></header>
@@ -47,6 +48,6 @@ export default function Home() {
 
     <section className="closing-vision"><div className="closing-inner"><span><Sparkles/></span><div><small>THE MUSIC LEGACY VISION</small><h2>More than a network.<br/>A place for the industry to <em>move forward together.</em></h2><p>For artists. For professionals. For businesses. For the people who believe music creates lasting connection, culture, and opportunity.</p></div><Link href="/dashboard" className="home-button gold">Enter Music Legacy <ArrowRight/></Link></div></section>
 
-    <footer className="home-footer"><div className="footer-main"><div className="footer-brand"><Link href="/" className="home-brand"><span className="home-logo">ML</span><span>Music Legacy <b>International</b></span></Link><p>Where music, opportunity, and community connect—and where every member can find a clearer way forward.</p><span>Music · Arts · Entertainment · Opportunity</span></div><div><h4>Explore</h4><Link href="/community">Community</Link><Link href="/opportunities">Opportunities</Link><Link href="/bridging">Your Path</Link><Link href="/membership">Membership</Link></div><div><h4>Connect</h4><Link href="/profile/sarah-monroe">Members</Link><a href="#path">How It Works</a><a href="mailto:hello@musiclegacyinternational.com">Contact</a><Link href="/dashboard">Member Access</Link></div><div className="footer-callout"><span><Crown/></span><h3>Ready for your next move?</h3><p>Discover what Music Legacy recommends for you.</p><Link href="/dashboard">Get started <ArrowRight/></Link></div></div><div className="footer-bottom"><p>© 2026 Music Legacy International. All rights reserved.</p><p>Built to move music forward.</p></div></footer>
+    <footer className="home-footer"><div className="footer-main"><div className="footer-brand"><Link href="/" className="brand-logo-link footer-logo-link"><BrandLogo className="brand-logo-footer" /></Link><p>Where music, opportunity, and community connect—and where every member can find a clearer way forward.</p><span>Music · Arts · Entertainment · Opportunity</span></div><div><h4>Explore</h4><Link href="/community">Community</Link><Link href="/opportunities">Opportunities</Link><Link href="/bridging">Your Path</Link><Link href="/membership">Membership</Link></div><div><h4>Connect</h4><Link href="/profile/sarah-monroe">Members</Link><a href="#path">How It Works</a><a href="mailto:hello@musiclegacyinternational.com">Contact</a><Link href="/dashboard">Member Access</Link></div><div className="footer-callout"><span><Crown/></span><h3>Ready for your next move?</h3><p>Discover what Music Legacy recommends for you.</p><Link href="/dashboard">Get started <ArrowRight/></Link></div></div><div className="footer-bottom"><p>© 2026 Music Legacy International. All rights reserved.</p><p>Built to move music forward.</p></div></footer>
   </main>;
 }
