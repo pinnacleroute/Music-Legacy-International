@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://music-legacy-international.loyal-quail-3361.chatgpt.site'),
+  metadataBase: new URL('https://musiclegacyinternational.pinnacleroute.com'),
   title: 'Music Legacy International — Opportunity Meets Community',
   description: 'Build your network, discover music-industry opportunities, and move your career forward.',
   icons: {
