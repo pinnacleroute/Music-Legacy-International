@@ -186,6 +186,9 @@ function membershipAccess(plan:MembershipPlan,label:string){
 }
 function MembershipBadge({plan}:{plan:string}){return <span className={`membership-badge membership-badge-${plan.toLowerCase().replaceAll(' ','-')}`}>{plan}</span>}
 export function MembershipPage(){
+  return <Suspense fallback={<Shell><div className="membership-screen"><div className="membership-hero"><Badge gold>Membership</Badge><h1>Choose How Far You Want to Go</h1></div></div></Shell>}><MembershipContent/></Suspense>
+}
+function MembershipContent(){
   const params=useSearchParams();
   const source=params.get('source')||'';
   const sourceMessage=source==='fasttrack'?'Unlock your full roadmap with Pro.':source==='opportunities'?'This opportunity requires Pro.':source==='groups'?'This group is available to Professional+ members.':source==='events'?'Pro members receive priority access.':'Based on your activity, upgrading now would unlock 3 matched opportunities, 2 premium groups, FastTrack, and 1 priority event.';
