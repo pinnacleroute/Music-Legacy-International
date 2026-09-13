@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, Suspense, useEffect, useRef, useMemo, useState } from 'react';
 import {
   ArrowLeft, ArrowRight, Bell, Bookmark, BriefcaseBusiness, Building2, CalendarDays,
@@ -32,8 +32,30 @@ function Badge({children,gold=false}:{children:React.ReactNode;gold?:boolean}){r
 function SectionHeader({title,action,href}:{title:string;action?:string;href?:string}){return <div className="section-head"><h2>{title}</h2>{action&&(href?<Link href={href}>{action}<ArrowRight size={14}/></Link>:<button>{action}<ArrowRight size={14}/></button>)}</div>}
 function RecommendationNote(){return <p className="recommendation-note"><Sparkles/> Recommendations based on your profile, Bridging Tool, goals, location, and activity.</p>}
 
+const searchIndex=[
+  ...members.map(m=>({kind:'Member',title:m.name,meta:`${m.role} · ${m.location}`,href:`/profile/${m.id}`,keywords:[m.type,m.specialty,m.reason].join(' '),icon:Users})),
+  ...opportunities.map(o=>({kind:'Opportunity',title:o.title,meta:`${o.organization} · ${o.location}`,href:'/opportunities',keywords:[o.category,o.genre,o.summary,o.compensation,o.skills.join(' ')].join(' '),icon:BriefcaseBusiness})),
+  ...groups.map(g=>({kind:'Group',title:g.name,meta:`${g.members} members · ${g.activity}`,href:`/community/${g.id}`,keywords:[g.description,g.reason,g.bestFor.join(' ')].join(' '),icon:Network})),
+  ...events.map(e=>({kind:'Event',title:e.title,meta:`${e.date} · ${e.location}`,href:'/events',keywords:[e.category,e.organizer,e.access,e.time].join(' '),icon:CalendarDays})),
+  ...marketplace.map(m=>({kind:'Marketplace',title:m.title,meta:`${m.subtype} · ${m.location}`,href:'/marketplace',keywords:[m.provider,m.category,m.rating,m.tier].join(' '),icon:Store})),
+];
+
+const notificationsSeed=[
+  {id:'invite',title:'Jessica Reed accepted your connection request.',meta:'Venue Manager · Manhattan, NY',href:'/profile/jessica-reed',unread:true,icon:Users},
+  {id:'event',title:'CBS Studio Artist Showcase has 2 performer slots remaining.',meta:'May 24 · 95% Match',href:'/events',unread:true,icon:CalendarDays},
+  {id:'message',title:'Marcus Lee sent a production follow-up.',meta:'Open your Messages inbox',href:'/messages?provider=Marcus%20Lee',unread:false,icon:MessagesSquare},
+  {id:'fasttrack',title:'FastTrack next action is ready.',meta:'Add performance media to improve booking matches',href:'/fasttrack',unread:false,icon:Zap},
+];
+
 function Shell({children}:{children:React.ReactNode}){
-  const path=usePathname(); const [open,setOpen]=useState(false);
+  const path=usePathname(), router=useRouter(); const [open,setOpen]=useState(false),[query,setQuery]=useState(''),[searchOpen,setSearchOpen]=useState(false),[notificationsOpen,setNotificationsOpen]=useState(false),[read,setRead]=useState<string[]>(notificationsSeed.filter(n=>!n.unread).map(n=>n.id));
+  const searchRef=useRef<HTMLDivElement>(null), notificationRef=useRef<HTMLDivElement>(null), searchInputRef=useRef<HTMLInputElement>(null);
+  const searchResults=useMemo(()=>{const terms=query.toLowerCase().split(/\s+/).filter(Boolean);const pool=terms.length?searchIndex.filter(item=>terms.every(term=>`${item.kind} ${item.title} ${item.meta} ${item.keywords}`.toLowerCase().includes(term))):searchIndex.slice(0,6);return pool.slice(0,6)},[query]);
+  const unreadCount=notificationsSeed.filter(n=>!read.includes(n.id)).length;
+  useEffect(()=>{function onPointerDown(e:PointerEvent){const target=e.target as Node;if(searchRef.current&&!searchRef.current.contains(target))setSearchOpen(false);if(notificationRef.current&&!notificationRef.current.contains(target))setNotificationsOpen(false)}function onKeyDown(e:KeyboardEvent){if(e.key==='Escape'){setSearchOpen(false);setNotificationsOpen(false)}if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();setSearchOpen(true);searchInputRef.current?.focus()}}document.addEventListener('pointerdown',onPointerDown);document.addEventListener('keydown',onKeyDown);return()=>{document.removeEventListener('pointerdown',onPointerDown);document.removeEventListener('keydown',onKeyDown)}},[]);
+  function submitSearch(e:FormEvent){e.preventDefault();const destination=searchResults[0]?.href||`/opportunities?search=${encodeURIComponent(query.trim())}`;if(destination){setSearchOpen(false);router.push(destination)}}
+  function openResult(href:string){setQuery('');setSearchOpen(false);router.push(href)}
+  function openNotification(id:string,href:string){setRead(prev=>prev.includes(id)?prev:[...prev,id]);setNotificationsOpen(false);router.push(href)}
   return <div className="platform-shell">
     <aside className={`sidebar ${open?'sidebar-open':''}`}>
       <div className="side-logo"><Link href="/" className="brand-logo-link sidebar-logo-link"><BrandLockup className="sidebar-brand-lockup" priority /></Link><button aria-label="Close menu" className="mobile-close" onClick={()=>setOpen(false)}><X size={19}/></button></div>
@@ -42,7 +64,7 @@ function Shell({children}:{children:React.ReactNode}){
       <div className="side-person"><Avatar initials="AC"/><div><b>Alex Carter</b><small>Artist / Musician · Pro</small></div><ChevronDown size={15}/></div>
     </aside>
     {open&&<button aria-label="Close menu" className="sidebar-scrim" onClick={()=>setOpen(false)}/>} 
-    <div className="platform-main"><header className="topbar"><button aria-label="Open menu" className="menu-button" onClick={()=>setOpen(true)}><Menu/></button><Link href="/" className="brand-logo-link mobile-topbar-logo"><BrandLockup className="mobile-brand-lockup" /></Link><div className="top-search"><Search size={17}/><span>Search people, opportunities, groups, events…</span><kbd>⌘ K</kbd></div><div className="top-actions"><Link className="invite-link" href="/onboarding?invite=1">Invite Member</Link><button aria-label="Notifications"><Bell size={19}/><i/></button><Link href="/profile/sarah-monroe"><Avatar initials="AC"/></Link></div></header><div className="page-wrap">{children}</div></div>
+    <div className="platform-main"><header className="topbar"><button aria-label="Open menu" className="menu-button" onClick={()=>setOpen(true)}><Menu/></button><Link href="/" className="brand-logo-link mobile-topbar-logo"><BrandLockup className="mobile-brand-lockup" /></Link><div className="top-search-wrap" ref={searchRef}><form className="top-search" role="search" onSubmit={submitSearch}><Search size={17}/><input ref={searchInputRef} aria-label="Search people, opportunities, groups, events" placeholder="Search people, opportunities, groups, events..." value={query} onChange={e=>{setQuery(e.target.value);setSearchOpen(true)}} onFocus={()=>setSearchOpen(true)}/><kbd>⌘ K</kbd></form>{searchOpen&&<div className="top-search-results" aria-label="Search results">{searchResults.length?searchResults.map(({kind,title,meta,href,icon:Icon})=><button key={`${kind}-${title}`} onClick={()=>openResult(href)}><span><Icon size={16}/></span><p><b>{title}</b><small>{kind} · {meta}</small></p><ArrowRight size={14}/></button>):<div className="top-search-empty"><Search size={18}/><p><b>No results found</b><small>Try an artist, group, event, or opportunity name.</small></p></div>}</div>}</div><div className="top-actions"><Link className="invite-link" href="/onboarding?invite=1">Invite Member</Link><div className="notification-wrap" ref={notificationRef}><button aria-label={`Notifications${unreadCount?` (${unreadCount} unread)`:''}`} aria-expanded={notificationsOpen} onClick={()=>setNotificationsOpen(!notificationsOpen)}><Bell size={19}/>{unreadCount>0&&<i/>}</button>{notificationsOpen&&<section className="notifications-panel" aria-label="Notifications"><div><p><b>Notifications</b><small>{unreadCount} unread</small></p><button onClick={()=>setRead(notificationsSeed.map(n=>n.id))}>Mark all read</button></div>{notificationsSeed.map(({id,title,meta,href,icon:Icon})=>{const unread=!read.includes(id);return <button key={id} className={unread?'unread':''} onClick={()=>openNotification(id,href)}><span><Icon size={16}/></span><p><b>{title}</b><small>{meta}</small></p>{unread&&<i/>}</button>})}</section>}</div><Link href="/profile/sarah-monroe"><Avatar initials="AC"/></Link></div></header><div className="page-wrap">{children}</div></div>
     <nav className="mobile-nav">{nav.slice(0,4).map(({label,href,icon:Icon})=><Link key={label} href={href} className={path===href?'active':''}><Icon size={20}/><span>{label.replace('MLI ','').replace(' & Groups','')}</span></Link>)}</nav>
   </div>
 }
