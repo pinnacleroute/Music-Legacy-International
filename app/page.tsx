@@ -41,18 +41,64 @@ const journey = [
   ['04', 'Build momentum', 'Apply, connect, participate, and track progress through FastTrack.', TrendingUp],
 ];
 
+const homepageVisuals = {
+  hero: {
+    desktop: '/assets/homepage/hero-music-opportunity.webp',
+    mobile: '/assets/homepage/hero-music-opportunity-mobile.webp',
+    alt: 'Artist and music-industry professionals collaborating backstage before a live performance.',
+  },
+  personalized: {
+    desktop: '/assets/homepage/personalized-path.webp',
+    mobile: '/assets/homepage/personalized-path-mobile.webp',
+    alt: 'Independent artist moving from backstage toward a warmly lit stage opportunity.',
+  },
+  culture: {
+    desktop: '/assets/homepage/community-culture.webp',
+    mobile: '/assets/homepage/community-culture-mobile.webp',
+    alt: 'Artists and music-industry professionals collaborating in a backstage lounge.',
+  },
+  opportunity: {
+    desktop: '/assets/homepage/opportunity-in-action.webp',
+    mobile: '/assets/homepage/opportunity-in-action-mobile.webp',
+    alt: 'Independent artist being welcomed toward a live stage by an event coordinator.',
+  },
+  closing: {
+    desktop: '/assets/homepage/closing-vision.webp',
+    mobile: '/assets/homepage/closing-vision-mobile.webp',
+    alt: 'Music-industry professionals and artists walking together after a live event with city lights behind them.',
+  },
+};
+
+type HomeVisualKey = keyof typeof homepageVisuals;
+
+function HomeVisual({
+  name,
+  className = '',
+  loading = 'lazy',
+}: {
+  name: HomeVisualKey;
+  className?: string;
+  loading?: 'eager' | 'lazy';
+}) {
+  const visual = homepageVisuals[name];
+
+  return <picture className={`homepage-picture ${className}`}>
+    <source media="(max-width: 700px)" srcSet={visual.mobile} type="image/webp" />
+    <img
+      src={visual.desktop}
+      alt={visual.alt}
+      width={1600}
+      height={900}
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      fetchPriority={loading === 'eager' ? 'high' : 'auto'}
+    />
+  </picture>;
+}
+
 function HeroStoryZone() {
-  return <div className="hero-story-zone" aria-label="Replaceable hero storytelling visual zone">
-    <div className="story-zone-label"><Radio size={14}/> Future hero visual</div>
-    <div className="story-zone-stage">
-      <span/>
-      <span/>
-      <span/>
-      <div>
-        <b>Music opportunity in motion</b>
-        <small>Reserved for performance, artist, or venue storytelling</small>
-      </div>
-    </div>
+  return <div className="hero-story-zone visual-loaded hero-final-zone">
+    <HomeVisual name="hero" className="hero-final-visual" loading="eager" />
     <div className="hero-match-note">
       <Sparkles size={15}/>
       <p><b>Your next move, surfaced.</b><small>Personalized opportunities, people, events, and communities.</small></p>
@@ -61,28 +107,25 @@ function HeroStoryZone() {
 }
 
 function EditorialMediaBand() {
-  return <div className="editorial-media-band" aria-label="Replaceable editorial media band">
-    <span>Future editorial visual</span>
-    <div>
-      <b>Artist path, industry access, community signal</b>
-      <small>Reserved for studio, live room, or creator-culture imagery.</small>
+  return <div className="editorial-media-band visual-loaded personalized-final-zone">
+    <HomeVisual name="personalized" className="personalized-final-visual" />
+    <div className="path-visual-card">
+      <small>Recommended next step</small>
+      <b>Backstage access to a live room opportunity</b>
+      <Link href="/opportunities">Review match <ArrowRight size={14}/></Link>
     </div>
   </div>;
 }
 
 function CultureStorySection() {
-  return <div className="culture-story-zone" aria-label="Replaceable artist and community storytelling zone">
-    <span>Future culture visual</span>
-    <div>
-      <b>Faces, rooms, and scenes that make the network feel alive.</b>
-      <small>Reserved for artist portraits, community moments, and music culture.</small>
-    </div>
+  return <div className="culture-story-zone visual-loaded culture-final-zone">
+    <HomeVisual name="culture" className="culture-final-visual" />
   </div>;
 }
 
 function OpportunityStoryPanel() {
-  return <div className="opportunity-story-panel" aria-label="Replaceable opportunity and live-event storytelling zone">
-    <span>Future opportunity visual</span>
+  return <div className="opportunity-story-panel visual-loaded opportunity-final-zone">
+    <HomeVisual name="opportunity" className="opportunity-final-visual" />
     <div className="opportunity-proof">
       <small>Live performance match</small>
       <h3>Live Blues Guitarist Needed</h3>
@@ -184,7 +227,8 @@ export default function Home() {
       <OpportunityStoryPanel/>
     </section>
 
-    <section className="closing-vision editorial-closing">
+    <section className="closing-vision editorial-closing closing-final-zone">
+      <HomeVisual name="closing" className="closing-final-visual" />
       <div className="closing-inner"><span><Crown/></span><div><small>THE MUSIC LEGACY VISION</small><h2>More than a network.<br/>A place for the industry to <em>move forward together.</em></h2><p>For artists. For professionals. For businesses. For the people who believe music creates lasting connection, culture, and opportunity.</p></div><Link href="/dashboard" className="home-button gold">Enter Music Legacy <ArrowRight/></Link></div>
     </section>
 
