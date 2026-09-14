@@ -1,6 +1,6 @@
 'use client';
-/* eslint-disable @next/next/no-img-element */
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { FormEvent, KeyboardEvent, Suspense, useEffect, useRef, useState } from 'react';
@@ -35,11 +35,27 @@ type Conversation = {
   messages: Message[];
 };
 
-const profileImages: Record<string, string> = {
-  'marcus-lee': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
-  'sarah-monroe': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
-  'jessica-reed': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80',
-  'nia-brooks': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=240&q=80',
+const profileImages: Record<string, { src: string; alt: string; position: string }> = {
+  'marcus-lee': {
+    src: '/assets/dashboard/dashboard-marcus-lee-360.webp',
+    alt: 'Marcus Lee profile portrait.',
+    position: 'center 32%',
+  },
+  'sarah-monroe': {
+    src: '/assets/dashboard/dashboard-sarah-monroe-360.webp',
+    alt: 'Sarah Monroe profile portrait.',
+    position: 'center 30%',
+  },
+  'jessica-reed': {
+    src: '/assets/dashboard/dashboard-jessica-reed-360.webp',
+    alt: 'Jessica Reed profile portrait.',
+    position: 'center 30%',
+  },
+  'nia-brooks': {
+    src: '/assets/messages/nia-brooks-480.webp',
+    alt: 'Nia Brooks profile portrait.',
+    position: 'center 28%',
+  },
 };
 
 const memberOrder = [members[1], members[0], members[2], members[3]];
@@ -105,7 +121,7 @@ function memberById(id: string) {
 
 function PersonPhoto({ id, initials }: { id: string; initials: string }) {
   const image = profileImages[id];
-  return image ? <img className="message-photo" src={image} alt="" loading="lazy" /> : <span className="avatar">{initials}</span>;
+  return image ? <Image className="message-photo" src={image.src} alt={image.alt} width={96} height={96} sizes="(max-width: 600px) 42px, 76px" loading="lazy" style={{ objectPosition: image.position }} /> : <span className="avatar">{initials}</span>;
 }
 
 export default function MessagesContent() {
