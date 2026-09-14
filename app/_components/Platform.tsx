@@ -52,18 +52,18 @@ const notificationsSeed=[
 ];
 
 const dashboardImages = {
-  cbsShowcase: '/assets/dashboard/dashboard-cbs-studio-showcase.png',
-  bookingRelationship: '/assets/dashboard/bridging-booking-relationship.png',
+  cbsShowcase: '/assets/dashboard/dashboard-cbs-studio-showcase-1200.webp',
+  bookingRelationship: '/assets/dashboard/bridging-booking-relationship-1200.webp',
   people: {
-    'sarah-monroe': '/assets/dashboard/dashboard-sarah-monroe.png',
-    'marcus-lee': '/assets/dashboard/dashboard-marcus-lee.png',
-    'jessica-reed': '/assets/dashboard/dashboard-jessica-reed.png',
+    'sarah-monroe': '/assets/dashboard/dashboard-sarah-monroe-360.webp',
+    'marcus-lee': '/assets/dashboard/dashboard-marcus-lee-360.webp',
+    'jessica-reed': '/assets/dashboard/dashboard-jessica-reed-360.webp',
   },
   network: {
-    amara: '/assets/dashboard/dashboard-amara-stay-until-sunrise.png',
-    studio: '/assets/dashboard/dashboard-marcus-studio-availability.png',
-    opportunity: '/assets/dashboard/dashboard-jessica-live-opportunity.png',
-    networking: '/assets/dashboard/dashboard-networking-night.png',
+    amara: '/assets/dashboard/dashboard-amara-stay-until-sunrise-320.webp',
+    studio: '/assets/dashboard/dashboard-marcus-studio-availability-320.webp',
+    opportunity: '/assets/dashboard/dashboard-jessica-live-opportunity-320.webp',
+    networking: '/assets/dashboard/dashboard-networking-night-320.webp',
   },
 } as const;
 
@@ -74,22 +74,22 @@ const opportunityImages = {
     position: '26% center',
   },
   2: {
-    src: '/assets/opportunities/live-blues-guitarist-needed.png',
+    src: '/assets/opportunities/live-blues-guitarist-needed-720.webp',
     alt: 'Blues guitarist performing at an intimate live venue.',
     position: '34% center',
   },
   3: {
-    src: '/assets/opportunities/producer-seeking-female-vocalist.png',
+    src: '/assets/opportunities/producer-seeking-female-vocalist-720.webp',
     alt: 'Producer and female vocalist collaborating in a recording studio.',
     position: '50% center',
   },
   4: {
-    src: '/assets/opportunities/tour-photographer-needed.png',
+    src: '/assets/opportunities/tour-photographer-needed-720.webp',
     alt: 'Music photographer capturing a live performance from the stage area.',
     position: '30% center',
   },
   6: {
-    src: '/assets/opportunities/friday-artist-showcase-invitation.png',
+    src: '/assets/opportunities/friday-artist-showcase-invitation-720.webp',
     alt: 'Artist performing at an intimate curated Manhattan showcase.',
     position: '34% center',
   },
