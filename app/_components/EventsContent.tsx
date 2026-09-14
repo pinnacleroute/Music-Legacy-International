@@ -556,10 +556,9 @@ function FilterDrawer({ filters, setFilters, visibleCount, onClose, onClear }: {
     ['type', 'Event Type', categoryTabs],
     ['location', 'Location', ['All locations', 'New York area', 'Online']],
     ['format', 'Online / In Person', ['Any format', 'Online', 'In Person']],
-    ['date', 'Date Range', ['Any date', 'This week', 'Later this month']],
-    ['access', 'Access Level', ['Any access', 'All members', 'Professional+', 'Pro members only']],
+    ['access', 'Access Level', ['Any access', 'All members', 'Pro Silver', 'VIP / Alliance']],
     ['ticketing', 'Free / Ticketed', ['Any ticketing', 'Free', '$25']],
-    ['tier', 'Member Tier', ['Any tier', 'Professional', 'Pro', 'Premium']],
+    ['tier', 'Member Tier', ['Any tier', 'Fan / Audiophile', 'Pro Silver', 'Pro Gold', 'Pro Platinum', 'VIP / Alliance']],
     ['state', 'Live / Upcoming / On Demand', ['Live / Upcoming / On Demand', 'Upcoming', 'Waitlist', 'On Demand']],
   ];
   return <div className="modal-backdrop" onClick={onClose}>

@@ -197,7 +197,7 @@ export default function FastTrackContent() {
           <MiniOpportunity />
         </section>
         <section className="small-pro-note">
-          <Crown size={16} /><p>Priority opportunity matching is available with Pro.</p><Link href="/membership">Compare Memberships</Link>
+          <Crown size={16} /><p>Priority opportunity matching is available with Pro Silver.</p><Link href="/membership">Compare Memberships</Link>
         </section>
       </aside>
     </div>

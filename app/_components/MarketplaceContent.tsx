@@ -487,7 +487,7 @@ function FilterDrawer({ filters, setFilters, visibleCount, onClose, onClear }: {
     ['category', 'Category', ['All categories', ...rawCategories]],
     ['location', 'Location', ['All locations', 'New York area', 'Remote', 'East Coast', 'Ships nationwide']],
     ['mode', 'Remote / In Person', ['Any format', 'Remote', 'In-person', 'Shipping']],
-    ['tier', 'Member Tier', ['All tiers', 'Professional', 'Pro', 'Premium']],
+    ['tier', 'Member Tier', ['All tiers', 'Pro Silver', 'Pro Gold', 'Pro Platinum', 'VIP / Alliance']],
     ['rating', 'Rating', ['Any rating', '4.8 and up', '4.9 and up']],
     ['price', 'Price Range', ['Any price', 'Under $100', '$100-$400', 'Over $400', 'Request a Quote']],
     ['availability', 'Availability', ['Any availability', 'Available', 'Limited', 'June', 'Thursday']],

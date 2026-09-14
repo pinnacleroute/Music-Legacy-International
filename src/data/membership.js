@@ -1,0 +1,661 @@
+// Centralized Membership Data & Entitlements for Music Legacy International (MLI)
+// Source of truth: Actual MLI Live Platform Membership Structure
+
+export const processingFeeNotice =
+  'Choose the annual plan and get free processing. Other membership tiers receive a $5 processing fee per invoice.';
+
+export const billingOptions = ['Monthly', 'Annual'];
+
+export const memberTypeFit = {
+  'Artist / Musician': {
+    recommendedTier: 'Pro Silver',
+    reason: 'Expanded career, collaboration, content, networking, and exposure tools tailored for booking and live performance.',
+    focusNeeds: ['More live performances', 'Booking relationships', 'Targeted promotion', 'Industry networking'],
+    currentGoal: 'Book more live performances',
+  },
+  'Music Industry Professional': {
+    recommendedTier: 'Pro Silver',
+    reason: 'Networking, collaboration tools, professional badges, and priority industry showcase access.',
+    focusNeeds: ['Talent discovery', 'Industry networking', 'Professional directory presence', 'Client relationships'],
+    currentGoal: 'Build strategic industry connections',
+  },
+  'Business / Venue / Organization': {
+    recommendedTier: 'Pro Gold',
+    reason: 'Expanded business profile, vendor network listing, sponsor opportunities, and partner advertising.',
+    focusNeeds: ['Artist booking', 'Venue programming', 'Event promotion', 'Directory visibility'],
+    currentGoal: 'Curate high-caliber live programming',
+  },
+  'Fan / Audiophile': {
+    recommendedTier: 'Fan / Audiophile',
+    reason: 'Deeper access to music, content, community, artist experiences, and live events.',
+    focusNeeds: ['Live music discovery', 'Community participation', 'Artist support'],
+    currentGoal: 'Discover and support independent artists',
+  },
+};
+
+export const tiers = [
+  {
+    id: 'fan',
+    name: 'Fan',
+    price: 'FREE',
+    priceNumeric: 0,
+    priceLabel: 'FREE',
+    displayPrice: 'FREE',
+    period: '',
+    audience: null,
+    group: 'Personal / Creative Memberships',
+    positioning: 'Start exploring Music Legacy.',
+    shortPositioning: 'Explore and participate in the MLI community.',
+    bestFor: 'Exploring the community and getting started.',
+    keyBenefits: [
+      'Profile & Timeline Access',
+      'Follow Artists / Businesses',
+      'Limited Community Access',
+      'Pay-per-download content',
+      'Limited industry connections',
+      'Limited live-event access',
+    ],
+    cta: 'Choose Fan',
+    ctaCurrent: 'Current Plan',
+    badge: 'Free',
+  },
+  {
+    id: 'fan-audiophile',
+    name: 'Fan / Audiophile',
+    price: '$19.95',
+    priceNumeric: 19.95,
+    priceLabel: '$19.95',
+    displayPrice: '$19.95',
+    period: '/ month',
+    audience: null,
+    group: 'Personal / Creative Memberships',
+    positioning: 'Go deeper into the music, community, and artist experience.',
+    shortPositioning: 'Deeper access to music, content, community, and artist experiences.',
+    bestFor: 'Fans and music enthusiasts wanting direct access to artists and content.',
+    keyBenefits: [
+      'Full community access',
+      'Upload and sell content',
+      'Fast Track access',
+      'Limited artist/interview features',
+      'Expanded live-event access',
+      'Monetization features',
+    ],
+    cta: 'Choose Fan / Audiophile',
+    ctaCurrent: 'Current Plan',
+    badge: null,
+  },
+  {
+    id: 'pro-silver',
+    name: 'Pro Silver',
+    price: '$29.99',
+    priceNumeric: 29.99,
+    priceLabel: '$29.99',
+    displayPrice: '$29.99',
+    period: '/ month',
+    audience: null,
+    group: 'Personal / Creative Memberships',
+    positioning: 'Build momentum with expanded professional access.',
+    shortPositioning: 'Expanded career, collaboration, content, networking, and exposure tools.',
+    bestFor: 'Artists, musicians, and creators actively pursuing career advancement and booking.',
+    isRecommended: true,
+    recommendationBadge: 'BEST FIT FOR YOU',
+    keyBenefits: [
+      'Expanded content access',
+      'Fast Track Program',
+      'Priority artist/interview features',
+      'Collaboration projects',
+      'Expanded business profile',
+      'Priority showcase access',
+    ],
+    cta: 'Choose Pro Silver',
+    ctaCurrent: 'Current Plan',
+    badge: 'Recommended',
+  },
+  {
+    id: 'pro-gold',
+    name: 'Pro Gold',
+    price: '$49.99+',
+    priceNumeric: 49.99,
+    priceLabel: '$49.99+',
+    displayPrice: '$49.99+',
+    period: '/ month',
+    audience: 'Business / Vendor',
+    group: 'Professional / Business Access',
+    positioning: 'Expand your business presence across the MLI ecosystem.',
+    shortPositioning: 'Expanded business visibility, industry participation, promotion, and partner access.',
+    bestFor: 'Venues, vendors, agencies, and businesses looking for commercial reach.',
+    keyBenefits: [
+      'Expanded business profile',
+      'Expanded vendor listing',
+      'Sponsor opportunities',
+      'Industry connections',
+      'Expanded advertising exposure',
+      'Priority showcase access',
+    ],
+    cta: 'Choose Pro Gold',
+    ctaCurrent: 'Current Plan',
+    badge: 'Business / Vendor',
+  },
+  {
+    id: 'pro-platinum',
+    name: 'Pro Platinum',
+    price: '$99.99+',
+    priceNumeric: 99.99,
+    priceLabel: '$99.99+',
+    displayPrice: '$99.99+',
+    period: '/ month',
+    audience: null,
+    group: 'Professional / Business Access',
+    positioning: 'Unlock premium visibility and custom professional access.',
+    shortPositioning: 'Premium professional access, featured visibility, custom capabilities, and deeper industry participation.',
+    bestFor: 'Established creators, agencies, and businesses demanding top-tier placement.',
+    keyBenefits: [
+      'Custom content/storage access',
+      'Featured artist exposure',
+      'Premium interviews',
+      'Advanced collaboration',
+      'Priority advertising',
+      'VIP showcase access',
+    ],
+    cta: 'Choose Pro Platinum',
+    ctaCurrent: 'Current Plan',
+    badge: 'Premium',
+  },
+  {
+    id: 'vip-alliance',
+    name: 'VIP / Alliance',
+    price: '$495',
+    priceNumeric: 495,
+    priceLabel: '$495',
+    displayPrice: '$495',
+    period: '/ month',
+    audience: 'High-Touch / Strategic',
+    group: 'Professional / Business Access',
+    positioning: 'Highest-touch access and strategic participation.',
+    shortPositioning: 'Highest-touch access, custom support, VIP exposure, strategic relationships, and tailored participation.',
+    bestFor: 'Strategic partners, executive leaders, and high-impact industry stakeholders.',
+    keyBenefits: [
+      'Custom content and storage',
+      'Featured visibility',
+      'Premium interviews',
+      'VIP showcase access',
+      'Strategic partnerships',
+      'Custom agreements',
+    ],
+    cta: 'Explore VIP / Alliance',
+    ctaCurrent: 'Current Plan',
+    badge: 'VIP',
+  },
+];
+
+// 8 Source Feature Categories with Full Matrix across all 6 Tiers
+export const comparisonFeatureGroups = [
+  {
+    id: 'core-access',
+    category: 'CORE ACCESS',
+    features: [
+      {
+        name: 'Profile & Timeline Access',
+        fan: 'Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Follow Artists / Businesses',
+        fan: 'Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Community Access',
+        fan: 'Limited',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Badges / Recognition',
+        fan: 'Not Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'content-media',
+    category: 'CONTENT & MEDIA',
+    features: [
+      {
+        name: 'Upload Songs / Videos',
+        fan: 'Not Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+      {
+        name: 'Sell Content',
+        fan: 'Not Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Download Content',
+        fan: 'Pay per download',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+      {
+        name: 'Storage Limits',
+        fan: 'Not Included',
+        'fan-audiophile': 'Standard',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+    ],
+  },
+  {
+    id: 'career-growth',
+    category: 'CAREER & GROWTH',
+    features: [
+      {
+        name: 'Fast Track Program',
+        fan: 'Not Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+      {
+        name: 'Artist Spotlights',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Priority',
+        'pro-gold': 'Priority',
+        'pro-platinum': 'Featured',
+        'vip-alliance': 'Featured',
+      },
+      {
+        name: 'Interview Features',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Priority',
+        'pro-gold': 'Priority',
+        'pro-platinum': 'Premium',
+        'vip-alliance': 'Premium',
+      },
+      {
+        name: 'Member Badges',
+        fan: 'Limited',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Professional Badges',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Limited',
+        'pro-gold': 'Limited',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'collaboration',
+    category: 'COLLABORATION',
+    features: [
+      {
+        name: 'Collaboration Projects',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Revenue Split Agreements',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Limited',
+        'pro-gold': 'Limited',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'monetization',
+    category: 'MONETIZATION',
+    features: [
+      {
+        name: 'Points from Content',
+        fan: 'Limited',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Point Sharing',
+        fan: 'Limited',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+      {
+        name: 'Referral / Bonus Points',
+        fan: 'Limited',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Point Conversion',
+        fan: 'Not Included',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'business-industry',
+    category: 'BUSINESS & INDUSTRY',
+    features: [
+      {
+        name: 'Business Profile',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Custom',
+        'vip-alliance': 'Custom',
+      },
+      {
+        name: 'Vendor Network Listing',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Sponsor Opportunities',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Industry Connections',
+        fan: 'Limited',
+        'fan-audiophile': 'Included',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Analytics Dashboard',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'promotion-exposure',
+    category: 'PROMOTION & EXPOSURE',
+    features: [
+      {
+        name: 'MLI Advertising Inclusion',
+        fan: 'Limited',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Included',
+        'pro-gold': 'Included',
+        'pro-platinum': 'Priority',
+        'vip-alliance': 'Priority',
+      },
+      {
+        name: 'Exposure / Drake / MLI TV',
+        fan: 'Prelaunch',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Featured',
+        'vip-alliance': 'Featured',
+      },
+      {
+        name: 'Live Event / Showcase Access',
+        fan: 'Limited',
+        'fan-audiophile': 'Expanded',
+        'pro-silver': 'Priority',
+        'pro-gold': 'Priority',
+        'pro-platinum': 'VIP',
+        'vip-alliance': 'VIP',
+      },
+      {
+        name: 'Tour / Sponsorship Access',
+        fan: 'Not Included',
+        'fan-audiophile': 'Limited',
+        'pro-silver': 'Expanded',
+        'pro-gold': 'Expanded',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+  {
+    id: 'advanced-custom',
+    category: 'ADVANCED / CUSTOM',
+    features: [
+      {
+        name: 'Custom Agreements',
+        fan: 'Not Included',
+        'fan-audiophile': 'Not Included',
+        'pro-silver': 'Not Included',
+        'pro-gold': 'Not Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Custom Storage / Downloads',
+        fan: 'Not Included',
+        'fan-audiophile': 'Not Included',
+        'pro-silver': 'Not Included',
+        'pro-gold': 'Not Included',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+      {
+        name: 'Strategic Partnerships',
+        fan: 'Not Included',
+        'fan-audiophile': 'Not Included',
+        'pro-silver': 'Not Included',
+        'pro-gold': 'Limited',
+        'pro-platinum': 'Included',
+        'vip-alliance': 'Included',
+      },
+    ],
+  },
+];
+
+export const comparisonLegend = [
+  { term: 'Not Included', desc: 'Feature unavailable for this tier.' },
+  { term: 'Limited', desc: 'Limited access.' },
+  { term: 'Standard', desc: 'Standard access.' },
+  { term: 'Expanded', desc: 'Expanded access.' },
+  { term: 'Priority', desc: 'Priority access.' },
+  { term: 'Featured', desc: 'Enhanced / featured visibility.' },
+  { term: 'Premium', desc: 'Premium access / visibility.' },
+  { term: 'Custom', desc: 'Tailored to member needs.' },
+  { term: 'VIP', desc: 'VIP-level access.' },
+  { term: 'Prelaunch', desc: 'Coming soon / prelaunch.' },
+  { term: 'Pay per download', desc: 'User pays for individual downloads.' },
+  { term: 'Included', desc: 'Fully included with membership.' },
+];
+
+export const whatChangesWithProSilver = [
+  {
+    category: 'Fast Track Program',
+    before: 'Not included on Fan; limited guidance',
+    after: 'Full Fast Track program included with actionable milestone steps',
+  },
+  {
+    category: 'Content & Media Access',
+    before: 'Pay per download; uploading not included on Fan',
+    after: 'Expanded upload of songs & videos, expanded storage, sell content',
+  },
+  {
+    category: 'Artist Spotlights & Interviews',
+    before: 'Unavailable or limited features',
+    after: 'Priority artist spotlights and priority interview features',
+  },
+  {
+    category: 'Collaboration & Split Agreements',
+    before: 'No collaboration projects or split agreements',
+    after: 'Collaboration projects included and revenue split agreements',
+  },
+  {
+    category: 'Live Showcases & Events',
+    before: 'Limited access to community gatherings',
+    after: 'Priority access to live showcases, tickets, and performer applications',
+  },
+  {
+    category: 'Business & Industry Tools',
+    before: 'Limited connections; no business profile',
+    after: 'Expanded business profile, vendor network listing, and analytics',
+  },
+];
+
+export const fastTrackSteps = [
+  { step: 1, title: 'Know Your Direction', status: 'completed', description: 'Defined live-performance & booking goals in Bridging.' },
+  { step: 2, title: 'Build Your Presence', status: 'in-progress', description: 'Upload performance media and stage repertoire.' },
+  { step: 3, title: 'Meet the Right People', status: 'locked', description: 'Connect with booking agents, talent buyers, and venue managers.' },
+  { step: 4, title: 'Pursue Opportunities', status: 'locked', description: 'Submit targeted applications for curated live showcases.' },
+  { step: 5, title: 'Review & Advance', status: 'locked', description: 'Track milestone metrics and route regional touring dates.' },
+];
+
+export const membershipFaqs = [
+  {
+    question: 'How does billing and invoice processing work?',
+    answer:
+      'Choose the annual plan and get free processing. Other membership tiers receive a $5 processing fee per invoice. In this prototype, checkout and upgrades are simulated without real credit card charges.',
+    category: 'billing',
+  },
+  {
+    question: 'Can I change plans later?',
+    answer:
+      'Yes. You can upgrade, switch, or downgrade your membership plan at any time. Changes take effect immediately in the prototype.',
+    category: 'general',
+  },
+  {
+    question: 'What is the Fast Track Program and who gets it?',
+    answer:
+      'Fast Track translates your Bridging goals into a step-by-step career progression roadmap. Fast Track is included for Fan / Audiophile, Pro Silver, and Pro Gold, with custom advisory available on Pro Platinum and VIP / Alliance.',
+    category: 'fasttrack',
+  },
+  {
+    question: 'Who is Pro Gold designed for?',
+    answer:
+      'Pro Gold ($49.99+) is specifically tailored for Businesses and Vendors seeking expanded visibility, vendor network listings, sponsor opportunities, and partner advertising across the MLI ecosystem.',
+    category: 'business',
+  },
+  {
+    question: 'What is the difference between Pro Silver and Pro Platinum?',
+    answer:
+      'Pro Silver ($29.99) provides expanded career, collaboration, content, and priority showcase access for active artists. Pro Platinum ($99.99+) unlocks custom storage, featured visibility, premium interview features, VIP showcase access, and custom agreements.',
+    category: 'comparison',
+  },
+  {
+    question: 'What is VIP / Alliance?',
+    answer:
+      'VIP / Alliance ($495) provides our highest-touch access, custom executive support, VIP showcase access, strategic partnerships, and tailored participation across the global MLI ecosystem.',
+    category: 'vip',
+  },
+  {
+    question: 'Are event tickets included?',
+    answer:
+      'Many member sessions and community workshops are included. Certain flagship festivals or partner showcases may require separate registration, with Pro Silver and above receiving priority access and Pro Platinum and VIP / Alliance receiving VIP passes.',
+    category: 'events',
+  },
+];
+
+export function getRecommendedPlan(memberType = 'Artist / Musician') {
+  const fit = memberTypeFit[memberType] || memberTypeFit['Artist / Musician'];
+  const plan = tiers.find(t => t.name === fit.recommendedTier) || tiers[2];
+  return {
+    plan,
+    fit,
+    recommendedName: fit.recommendedTier,
+  };
+}
+
+// Entitlement Ranking and Shared Access Helpers
+export const tierRanks = {
+  fan: 0,
+  'fan-audiophile': 1,
+  'pro-silver': 2,
+  'pro-gold': 3,
+  'pro-platinum': 4,
+  'vip-alliance': 5,
+  // String name aliases
+  Fan: 0,
+  Free: 0,
+  'Fan / Audiophile': 1,
+  'Pro Silver': 2,
+  'Pro Gold': 3,
+  'Pro Platinum': 4,
+  'VIP / Alliance': 5,
+  // Backward compatibility aliases for old mock keys
+  'All Members': 0,
+  Professional: 2,
+  'Professional+': 2,
+  Pro: 2,
+  Premium: 4,
+};
+
+export function canAccessTier(userTier, requiredTier) {
+  const userRank = tierRanks[userTier] ?? 0;
+  const reqRank = tierRanks[requiredTier] ?? 0;
+  return userRank >= reqRank;
+}
