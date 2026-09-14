@@ -31,7 +31,7 @@ type JourneyStep = {
 };
 
 const profilePhotos: Record<string, string> = {
-  'sarah-monroe': 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=80',
+  'sarah-monroe': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
   'marcus-lee': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=220&q=80',
   'jessica-reed': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=220&q=80',
 };
@@ -56,9 +56,9 @@ const journeySteps: JourneyStep[] = [
     criteria: ['Add profile photo', 'Add bio', 'Add performance video', 'Add experience', 'Add availability'],
     doneCount: 2,
     actions: [
-      { id: 'profile-media', title: 'Add one live performance video', category: 'PROFILE', timing: 'Today', href: '/profile/sarah-monroe', cta: 'Add Media', why: 'Booking agents and venues are more likely to engage when they can see you perform.' },
-      { id: 'portfolio-proof', title: 'Add portfolio / proof of work', category: 'PROFILE', timing: 'This week', href: '/profile/sarah-monroe', cta: 'Update', why: 'Proof of work helps people quickly understand your readiness.' },
-      { id: 'availability', title: 'Add May and June availability', category: 'PROFILE', href: '/profile/sarah-monroe', cta: 'Add Availability', why: 'Availability helps venues and collaborators decide whether to start a conversation.' },
+      { id: 'profile-media', title: 'Add one live performance video', category: 'PROFILE', timing: 'Today', href: '/profile/alex-carter', cta: 'Add Media', why: 'Booking agents and venues are more likely to engage when they can see you perform.' },
+      { id: 'portfolio-proof', title: 'Add portfolio / proof of work', category: 'PROFILE', timing: 'This week', href: '/profile/alex-carter', cta: 'Update', why: 'Proof of work helps people quickly understand your readiness.' },
+      { id: 'availability', title: 'Add May and June availability', category: 'PROFILE', href: '/profile/alex-carter', cta: 'Add Availability', why: 'Availability helps venues and collaborators decide whether to start a conversation.' },
     ],
   },
   {

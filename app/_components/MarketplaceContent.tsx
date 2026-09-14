@@ -588,7 +588,7 @@ function CompareTable({ listings }: { listings: Listing[] }) {
 function ListServiceForm({ submitted, onSubmit }: { submitted: boolean; onSubmit: () => void }) {
   if (submitted) return <><p className="kicker">Submitted</p><h2>Submitted for MLI review</h2><p>Your marketplace listing was submitted in this prototype only. Nothing was published.</p></>;
   return <>
-    <p className="kicker">Provider flow</p><h2>List a Service</h2><p>Available to business / venue accounts, Professional members, approved Pro/Premium members, and MLI partners.</p>
+    <p className="kicker">Provider flow</p><h2>List a Service</h2><p>Available to Pro Gold business members, approved Pro Platinum providers, and MLI partners.</p>
     <form className="market-list-form" onSubmit={event => { event.preventDefault(); onSubmit(); }}>
       {['Service / Business Name', 'Category', 'Description', 'Location', 'Remote / In Person', 'Pricing', 'Availability', 'Portfolio', 'Contact Method', 'Cover Image'].map(label => <label className={label === 'Description' ? 'wide' : ''} key={label}>{label}{label === 'Description' ? <textarea required rows={3} /> : <input required={!['Portfolio', 'Cover Image'].includes(label)} placeholder={label} />}</label>)}
       <button className="primary-action" type="submit">Submit for MLI review <ArrowRight size={15} /></button>

@@ -1,8 +1,0 @@
-export const memberships = [
-  { name: 'Fan', price: 'FREE', line: 'Explore and participate in the MLI community.', features: ['Profile & timeline access', 'Follow artists / businesses', 'Community access', 'Pay per download'] },
-  { name: 'Fan / Audiophile', price: '$19.95', line: 'Deeper access to music, content, community, and artist experiences.', features: ['Full community access', 'Upload and sell content', 'Fast Track access', 'Monetization features'] },
-  { name: 'Pro Silver', price: '$29.99', line: 'Expanded career, collaboration, content, networking, and exposure tools.', features: ['Fast Track Program', 'Expanded content access', 'Priority artist/interview features', 'Collaboration projects', 'Priority showcase access'], recommended: true },
-  { name: 'Pro Gold', price: '$49.99+', line: 'Expanded business visibility, industry participation, promotion, and partner access.', audience: 'Business / Vendor', features: ['Expanded business profile', 'Vendor network listing', 'Sponsor opportunities', 'Industry connections', 'Expanded advertising'] },
-  { name: 'Pro Platinum', price: '$99.99+', line: 'Premium professional access, featured visibility, custom capabilities, and deeper industry participation.', features: ['Custom content & storage', 'Featured artist exposure', 'Premium interviews', 'Advanced collaboration', 'VIP showcase access'] },
-  { name: 'VIP / Alliance', price: '$495', line: 'Highest-touch access, custom support, VIP exposure, strategic relationships, and tailored participation.', features: ['Custom content and storage', 'Featured visibility', 'VIP showcase access', 'Strategic partnerships', 'Custom agreements'] },
-];

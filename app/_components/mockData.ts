@@ -11,7 +11,7 @@ export const members = [
     location:'New York, NY',
     timezone:'Eastern Time',
     specialty:'Live Music · Independent Artists',
-    membership:'Professional',
+    membership:'Pro Silver',
     verification:'MLI Verified Professional',
     availability:'Available for artist representation',
     responseTime:'Usually responds within 1 day',
@@ -86,5 +86,3 @@ export const memberships = [
   {name:'Pro Platinum',price:'$99.99+',line:'Premium professional access, featured visibility, custom capabilities, and deeper industry participation.',outcome:'Premium visibility.',bestFor:'Established creators and businesses demanding top-tier placement.',features:['Custom content & storage','Featured artist exposure','Premium interviews','Advanced collaboration','VIP showcase access']},
   {name:'VIP / Alliance',price:'$495',line:'Highest-touch access, custom support, VIP exposure, strategic relationships, and tailored participation.',outcome:'Strategic alliance.',bestFor:'Strategic partners, executive leaders, and high-impact industry stakeholders.',features:['Custom content and storage','Featured visibility','VIP showcase access','Strategic partnerships','Custom agreements']},
 ];
-
-export const adminActions = ['Edit member email','Change membership level','Approve opportunity','Approve vendor','Create event','Create group','Feature member','Feature opportunity'];

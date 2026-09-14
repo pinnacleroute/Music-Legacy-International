@@ -660,7 +660,7 @@ function CreateEventForm({ submitted, setSubmitted }: { submitted: boolean; setS
   return <>
     <p className="kicker">Eligible host flow</p>
     <h2>Create Event</h2>
-    <p>Available to MLI Admins, business / venue accounts, and approved Professional members.</p>
+    <p>Available to MLI Admins, Pro Gold business / venue accounts, and approved MLI partners.</p>
     <form className="events-form" onSubmit={event => { event.preventDefault(); setSubmitted(true); }}>
       {['Title', 'Date', 'Time', 'Location / Online', 'Capacity', 'Access', 'Ticketing', 'Performer Applications', 'Related Group', 'Sponsor', 'Cover Image'].map(label => <label key={label}>{label}<input required={['Title', 'Date', 'Time', 'Location / Online'].includes(label)} placeholder={label} /></label>)}
       <label className="wide">Event Type<select>{categoryTabs.slice(1).map(type => <option key={type}>{type}</option>)}</select></label>
