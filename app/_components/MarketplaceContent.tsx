@@ -9,7 +9,7 @@ import {
   MapPin, MessageCircle, Mic2, MoreHorizontal, Package, Search, Share2, ShieldCheck,
   SlidersHorizontal, Sparkles, Star, Store, Users, X,
 } from 'lucide-react';
-import { marketplace, members } from './mockData';
+import { marketplace, members, getCanonicalProfileImage } from './mockData';
 
 const rawCategories = ['Services', 'Businesses', 'Vendors', 'Artist Services', 'Products', 'Affiliates'];
 const primaryCategories = ['Services', 'Venues & Businesses', 'Creative Professionals', 'Products'];
@@ -273,7 +273,20 @@ function MarketplaceImage({ listing, className = '' }: { listing: Listing; class
 }
 
 function AvatarStack({ people }: { people: Listing['network'] }) {
-  return <span className="market-avatar-stack">{people.slice(0, 3).map(person => <span className={`avatar avatar-${person.tone}`} key={person.id}>{person.initials}</span>)}</span>;
+  return (
+    <span className="market-avatar-stack">
+      {people.slice(0, 3).map(person => {
+        const photo = (person as { photo?: string }).photo || getCanonicalProfileImage(person.id) || getCanonicalProfileImage(person.name);
+        return photo ? (
+          <span className="avatar has-image" key={person.id} title={person.name}>
+            <img src={photo} alt={person.name} />
+          </span>
+        ) : (
+          <span className={`avatar avatar-${person.tone}`} key={person.id}>{person.initials}</span>
+        );
+      })}
+    </span>
+  );
 }
 
 export default function MarketplaceContent() {

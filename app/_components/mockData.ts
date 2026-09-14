@@ -1,11 +1,37 @@
 export const memberTypes = ['Fan / Audiophile','Artist / Musician','Music Industry Professional','Business / Venue / Organization'];
 export const professionalTypes = ['Producer','Booking Agent','Promoter','Photographer','Videographer','Stage Crew','Music Marketing','Mentor / Teacher','Venue Manager'];
 
+export const canonicalProfileImages: Record<string, string> = {
+  'sarah-monroe': '/assets/dashboard/dashboard-sarah-monroe-360.webp',
+  'marcus-lee': '/assets/dashboard/dashboard-marcus-lee-360.webp',
+  'jessica-reed': '/assets/dashboard/dashboard-jessica-reed-360.webp',
+  'nia-brooks': '/assets/messages/nia-brooks-480.webp',
+};
+
+export function getCanonicalProfileImage(idOrName?: string): string | null {
+  if (!idOrName) return null;
+  const key = idOrName.toLowerCase().trim();
+  if (key === 'sarah-monroe' || key.includes('sarah monroe') || key === 'sm' || key === 'sarah') {
+    return '/assets/dashboard/dashboard-sarah-monroe-360.webp';
+  }
+  if (key === 'marcus-lee' || key.includes('marcus lee') || key === 'ml' || key === 'marcus') {
+    return '/assets/dashboard/dashboard-marcus-lee-360.webp';
+  }
+  if (key === 'jessica-reed' || key.includes('jessica reed') || key === 'jr' || key === 'jessica') {
+    return '/assets/dashboard/dashboard-jessica-reed-360.webp';
+  }
+  if (key === 'nia-brooks' || key.includes('nia brooks') || key === 'nb' || key === 'nia') {
+    return '/assets/messages/nia-brooks-480.webp';
+  }
+  return null;
+}
+
 export const members = [
   {
     id:'sarah-monroe',
     initials:'SM',
     name:'Sarah Monroe',
+    photo:'/assets/dashboard/dashboard-sarah-monroe-360.webp',
     type:'Music Industry Professional',
     role:'Booking Agent',
     location:'New York, NY',
@@ -29,9 +55,9 @@ export const members = [
     tone:'violet',
     state:'Connect',
   },
-  { id:'marcus-lee', initials:'ML', name:'Marcus Lee', type:'Music Industry Professional', role:'Producer', location:'Brooklyn, NY', specialty:'Soul · R&B Production', matchScore:91, reason:'Works with independent artists and matches your production needs.', tone:'blue', state:'Connected' },
-  { id:'jessica-reed', initials:'JR', name:'Jessica Reed', type:'Business / Venue / Organization', role:'Venue Manager', location:'Manhattan, NY', specialty:'Live Events · Showcases', matchScore:93, reason:'Located in New York and matches your booking needs.', tone:'gold', state:'Accept' },
-  { id:'nia-brooks', initials:'NB', name:'Nia Brooks', type:'Artist / Musician', role:'Singer / Songwriter', location:'Queens, NY', specialty:'Soul · Jazz · Live Performance', matchScore:89, reason:'Shares your genres and is looking for a guitarist.', tone:'cyan', state:'Connect' },
+  { id:'marcus-lee', initials:'ML', name:'Marcus Lee', photo:'/assets/dashboard/dashboard-marcus-lee-360.webp', type:'Music Industry Professional', role:'Producer', location:'Brooklyn, NY', specialty:'Soul · R&B Production', matchScore:91, reason:'Works with independent artists and matches your production needs.', tone:'blue', state:'Connected' },
+  { id:'jessica-reed', initials:'JR', name:'Jessica Reed', photo:'/assets/dashboard/dashboard-jessica-reed-360.webp', type:'Business / Venue / Organization', role:'Venue Manager', location:'Manhattan, NY', specialty:'Live Events · Showcases', matchScore:93, reason:'Located in New York and matches your booking needs.', tone:'gold', state:'Accept' },
+  { id:'nia-brooks', initials:'NB', name:'Nia Brooks', photo:'/assets/messages/nia-brooks-480.webp', type:'Artist / Musician', role:'Singer / Songwriter', location:'Queens, NY', specialty:'Soul · Jazz · Live Performance', matchScore:89, reason:'Shares your genres and is looking for a guitarist.', tone:'cyan', state:'Connect' },
 ];
 
 export const opportunities = [

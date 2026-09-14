@@ -4,8 +4,8 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
-  ArrowRight, BriefcaseBusiness, Check, Crown,
-  PlayCircle, Sparkles, UserPlus, X, Zap,
+  ArrowRight, Check, Crown,
+  PlayCircle, Sparkles, X, Zap,
 } from 'lucide-react';
 import { members, opportunities } from './mockData';
 
@@ -30,10 +30,10 @@ type JourneyStep = {
   actions: JourneyAction[];
 };
 
-const profilePhotos: Record<string, string> = {
-  'sarah-monroe': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80',
-  'marcus-lee': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=220&q=80',
-  'jessica-reed': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=220&q=80',
+const canonicalAssets = {
+  sarahMonroe: '/assets/dashboard/dashboard-sarah-monroe-360.webp',
+  cbsShowcase: '/assets/dashboard/dashboard-cbs-studio-showcase-1200.webp',
+  livePerformanceExample: '/assets/fasttrack/fasttrack-live-performance-example.webp',
 };
 
 const journeySteps: JourneyStep[] = [
@@ -134,7 +134,7 @@ export default function FastTrackContent() {
 
   return <div className="fasttrack-screen fasttrack-guide">
     <section className="guide-hero">
-      <div>
+      <div className="guide-hero-copy">
         <p className="kicker">FastTrack</p>
         <h1>A guided path from where you are now to where you want to go.</h1>
         <p>Your Bridging profile becomes a focused path of meaningful actions, relationships, and opportunities.</p>
@@ -164,10 +164,20 @@ export default function FastTrackContent() {
           <p className="stage-description">{currentStep.description}</p>
           <div className="stage-why"><Sparkles size={17} /><div><b>Why this stage matters</b><p>{currentStep.why}</p></div></div>
           <NextBestAction action={currentStep.actions[0]} done={Boolean(checked[currentStep.actions[0].id])} onToggle={() => toggleAction(currentStep.actions[0])} />
-          <section className="next-actions">
-            <div className="section-heading-inline"><div><p className="kicker">Your next 3 actions</p><h3>Small steps that build momentum.</h3></div><button onClick={() => setModal('All Actions')}>View All Actions</button></div>
-            {currentStep.actions.map(action => <GuideActionRow action={action} done={Boolean(checked[action.id])} onToggle={() => toggleAction(action)} key={action.id} />)}
+          
+          <section className="fasttrack-actions-section">
+            <header className="fasttrack-section-header">
+              <div className="section-header-left">
+                <p className="kicker">Your next 3 actions</p>
+                <h3>Small steps that build momentum.</h3>
+              </div>
+              <button type="button" className="view-all-actions-btn" onClick={() => setModal('All Actions')}>View All Actions</button>
+            </header>
+            <div className="fasttrack-action-list">
+              {currentStep.actions.map(action => <GuideActionRow action={action} done={Boolean(checked[action.id])} onToggle={() => toggleAction(action)} key={action.id} />)}
+            </div>
           </section>
+
           <ThisWeek actions={weekly} />
         </section>
 
@@ -208,44 +218,160 @@ export default function FastTrackContent() {
 
 function NextBestAction({ action, done, onToggle }: { action: JourneyAction; done: boolean; onToggle: () => void }) {
   return <section className={`next-best-guide ${done ? 'done' : ''}`}>
-    <div><Zap size={20} /><p className="kicker">Next best action</p><h3>{done ? 'Performance video added' : action.title}</h3><p>{done ? 'Your profile is stronger.' : action.why}</p></div>
-    <div><button onClick={onToggle}>{done ? <Check size={15} /> : <PlayCircle size={15} />}{done ? 'Done' : 'Mark done'}</button><Link href={action.href}>{action.cta} <ArrowRight size={14} /></Link></div>
+    <div className="next-best-main">
+      <div className="next-best-content">
+        <div className="next-best-title-group">
+          <Zap size={20} className="next-best-icon" />
+          <div>
+            <p className="kicker">Next best action</p>
+            <h3>{done ? 'Performance video added' : action.title}</h3>
+          </div>
+        </div>
+        <p className="next-best-why">{done ? 'Your profile is stronger.' : action.why}</p>
+        <div className="next-best-actions">
+          <button type="button" className="action-toggle-btn" onClick={onToggle}>
+            {done ? <Check size={15} /> : <PlayCircle size={15} />}
+            {done ? 'Done' : 'Mark done'}
+          </button>
+          <Link href={action.href} className="primary-action-btn">
+            {action.cta} <ArrowRight size={14} />
+          </Link>
+        </div>
+      </div>
+      <div className="next-best-media-preview" aria-label="Example performance video preview">
+        <div className="media-preview-frame">
+          <img
+            src={canonicalAssets.livePerformanceExample}
+            alt="Independent artist performing live at an intimate music venue."
+            width={1000}
+            height={563}
+            loading="lazy"
+          />
+          <div className="media-preview-overlay" aria-hidden="true">
+            <span className="media-play-badge">
+              <PlayCircle size={26} />
+            </span>
+            <span className="media-preview-tag">Example performance video</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>;
 }
 
 function GuideActionRow({ action, done, onToggle }: { action: JourneyAction; done: boolean; onToggle: () => void }) {
   return <article className={`guide-action-row ${done ? 'done' : ''}`}>
-    <button aria-label={`${done ? 'Reopen' : 'Complete'} ${action.title}`} aria-pressed={done} onClick={onToggle}>{done ? <Check size={15} /> : <span />}</button>
-    <div><span>{action.category}{action.timing ? ` · ${action.timing}` : ''}</span><b>{done ? action.title.replace('Add one live performance video', 'Performance video added') : action.title}</b></div>
-    <Link href={action.href}>{action.cta}</Link>
+    <button type="button" className="action-row-indicator" aria-label={`${done ? 'Reopen' : 'Complete'} ${action.title}`} aria-pressed={done} onClick={onToggle}>
+      {done ? <Check size={15} /> : <span />}
+    </button>
+    <div className="action-row-content">
+      <span>{action.category}{action.timing ? ` · ${action.timing}` : ''}</span>
+      <b>{done ? action.title.replace('Add one live performance video', 'Performance video added') : action.title}</b>
+    </div>
+    <Link href={action.href} className="action-row-cta">{action.cta}</Link>
   </article>;
 }
 
 function ThisWeek({ actions }: { actions: JourneyAction[] }) {
-  const icons = [PlayCircle, UserPlus, BriefcaseBusiness];
   return <section className="week-moment">
     <p className="kicker">This week</p>
-    <div>{actions.map((action, index) => { const Icon = icons[index]; return <Link href={action.href} key={action.id}><Icon size={17} /><span>{action.category}</span><b>{action.title}</b></Link>; })}</div>
+    <div className="week-cards-grid">
+      {actions.map((action) => {
+        let visualNode: React.ReactNode;
+        if (action.id === 'connect-sarah') {
+          visualNode = (
+            <span className="week-card-visual">
+              <img
+                src={canonicalAssets.sarahMonroe}
+                alt="Sarah Monroe"
+                className="week-avatar"
+                width={22}
+                height={22}
+                loading="lazy"
+              />
+            </span>
+          );
+        } else if (action.id === 'apply-cbs') {
+          visualNode = (
+            <span className="week-card-visual">
+              <img
+                src={canonicalAssets.cbsShowcase}
+                alt="Artist performing at the CBS Studio Artist Showcase."
+                className="week-thumb"
+                width={22}
+                height={22}
+                loading="lazy"
+              />
+            </span>
+          );
+        } else {
+          visualNode = (
+            <span className="week-card-visual">
+              <PlayCircle size={18} />
+            </span>
+          );
+        }
+
+        return (
+          <Link href={action.href} key={action.id} className="week-action-card">
+            <div className="week-card-header">
+              {visualNode}
+              <span>{action.category}</span>
+            </div>
+            <b>{action.title}</b>
+          </Link>
+        );
+      })}
+    </div>
   </section>;
 }
 
 function JourneyRow({ step, index }: { step: JourneyStep; index: number }) {
   const state = step.status === 'Complete' ? 'complete' : step.status === 'Current' ? 'current' : 'preview';
   return <article className={`journey-row ${state}`}>
-    <span>{step.status === 'Complete' ? <Check size={16} /> : String(index + 1).padStart(2, '0')}</span>
-    <div><small>Step {index + 1}</small><h3>{step.displayTitle}</h3><p>{step.internalTitle}</p>{step.status !== 'Current' && <em>{step.status === 'Complete' ? 'Complete' : step.unlock ?? 'Preview available'}</em>}</div>
-    {step.status === 'Coming next' && <Link href="/profile/sarah-monroe">Preview <ArrowRight size={14} /></Link>}
+    <span className="journey-step-badge">{step.status === 'Complete' ? <Check size={16} /> : String(index + 1).padStart(2, '0')}</span>
+    <div className="journey-step-info">
+      <small>Step {index + 1}</small>
+      <h3>{step.displayTitle}</h3>
+      <p>{step.internalTitle}</p>
+      {step.status !== 'Current' && <em>{step.status === 'Complete' ? 'Complete' : step.unlock ?? 'Preview available'}</em>}
+    </div>
+    <div className="journey-step-cta">
+      {step.status === 'Coming next' && <Link href="/profile/sarah-monroe">Preview <ArrowRight size={14} /></Link>}
+    </div>
   </article>;
 }
 
 function MiniPerson() {
   const person = members[0];
-  return <article className="mini-human-card"><img src={profilePhotos[person.id]} alt="" /><div><b>{person.name}</b><span>{person.role}</span><p>Relevant to your goal of booking more live performances.</p></div><Link href={`/profile/${person.id}`}>Connect</Link></article>;
+  return <article className="mini-human-card">
+    <img src={canonicalAssets.sarahMonroe} alt="Sarah Monroe" width={46} height={46} loading="lazy" />
+    <div>
+      <b>{person.name}</b>
+      <span>{person.role}</span>
+      <p>Relevant to your goal of booking more live performances.</p>
+    </div>
+    <Link href={`/profile/${person.id}`}>Connect</Link>
+  </article>;
 }
 
 function MiniOpportunity() {
   const item = opportunities[0];
-  return <article className="mini-opportunity-card"><BriefcaseBusiness size={18} /><div><b>{item.title}</b><span>Strong match for your current performance goal.</span></div><Link href="/opportunities">Apply</Link></article>;
+  return <article className="mini-opportunity-card">
+    <img
+      src={canonicalAssets.cbsShowcase}
+      alt="Artist performing at the CBS Studio Artist Showcase."
+      className="mini-opportunity-thumb"
+      width={48}
+      height={48}
+      loading="lazy"
+    />
+    <div>
+      <b>{item.title}</b>
+      <span>Strong match for your current performance goal.</span>
+    </div>
+    <Link href="/opportunities">Apply</Link>
+  </article>;
 }
 
 function FastTrackModal({ modal, checked, onClose, onToggle }: { modal: string; checked: Record<string, boolean>; onClose: () => void; onToggle: (action: JourneyAction) => void }) {

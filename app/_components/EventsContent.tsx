@@ -7,7 +7,7 @@ import {
   ArrowRight, Bookmark, CalendarDays, Check, Clock3, MapPin, MessageCircle,
   Play, Radio, Search, Share2, SlidersHorizontal, Sparkles, Users, X,
 } from 'lucide-react';
-import { events, marketplace, members, opportunities } from './mockData';
+import { events, marketplace, members, opportunities, getCanonicalProfileImage } from './mockData';
 
 type EventStatus = 'Upcoming' | 'Waitlist' | 'Sold Out' | 'On Demand' | 'Completed';
 type EventItem = (typeof events)[number] & {
@@ -288,7 +288,16 @@ function EventImage({ event, className = '' }: { event: EventItem; className?: s
 
 function AttendeeStack({ people }: { people: EventItem['people'] }) {
   return <div className="event-attendee-stack" aria-label={`${people.length} people in your network`}>
-    {people.slice(0, 3).map(person => <span className={`avatar avatar-${person.tone}`} key={person.id}>{person.initials}</span>)}
+    {people.slice(0, 3).map(person => {
+      const photo = (person as { photo?: string }).photo || getCanonicalProfileImage(person.id) || getCanonicalProfileImage(person.name);
+      return photo ? (
+        <span className="avatar has-image" key={person.id} title={person.name}>
+          <img src={photo} alt={person.name} />
+        </span>
+      ) : (
+        <span className={`avatar avatar-${person.tone}`} key={person.id}>{person.initials}</span>
+      );
+    })}
   </div>;
 }
 
@@ -605,7 +614,21 @@ function EventModal(props: {
       {modal === 'Share Event' && <><p className="kicker">Share</p><h2>{event.title}</h2><div className="event-share-options"><Link href={`/messages?provider=Sarah%20Monroe&event=${encodeURIComponent(event.title)}`}><MessageCircle size={16} /> Send in Message</Link><Link href={event.relatedGroup.href}><Users size={16} /> Share to Community</Link><button onClick={() => { onNotice(`Link copied for ${event.title} (demo).`); onClose(); }}><Share2 size={16} /> Copy Link</button></div></>}
       {modal === 'Add to Calendar' && <><p className="kicker">Calendar</p><h2>{event.title}</h2><div className="event-calendar-options">{['Google', 'Apple', 'Outlook'].map(calendar => <button key={calendar} onClick={() => { onNotice(`${calendar} calendar preview created for ${event.title}. No calendar was changed.`); onClose(); }}><CalendarDays size={18} /> {calendar}<ArrowRight size={14} /></button>)}</div></>}
       {modal === 'Your Event' && <><p className="kicker">Event State</p><h2>{state}</h2><p>{event.title}<br />{event.date} · {event.time} · {event.location}</p>{reminder && <label className="event-reminder-select">Reminder<select value={reminder} onChange={change => onReminder(change.target.value)}><option>1 day before</option><option>1 hour before</option></select></label>}<button className="events-text-button" onClick={() => onOpen('Add to Calendar', event)}>Add to Calendar</button><button className="events-text-button" onClick={() => onOpen('People You May Meet', event)}>People You May Meet</button></>}
-      {modal === 'People You May Meet' && <><p className="kicker">People you may want to meet</p><h2>{event.title}</h2>{event.people.map(person => <div className="event-member" key={person.id}><span className={`avatar avatar-${person.tone}`}>{person.initials}</span><div><Link href={`/profile/${person.id}`}>{person.name}</Link><small>{person.role} · {person.reason}</small></div></div>)}</>}
+      {modal === 'People You May Meet' && <><p className="kicker">People you may want to meet</p><h2>{event.title}</h2>{event.people.map(person => {
+        const photo = (person as { photo?: string }).photo || getCanonicalProfileImage(person.id) || getCanonicalProfileImage(person.name);
+        return (
+          <div className="event-member" key={person.id}>
+            {photo ? (
+              <span className="avatar has-image" title={person.name}>
+                <img src={photo} alt={person.name} />
+              </span>
+            ) : (
+              <span className={`avatar avatar-${person.tone}`}>{person.initials}</span>
+            )}
+            <div><Link href={`/profile/${person.id}`}>{person.name}</Link><small>{person.role} · {person.reason}</small></div>
+          </div>
+        );
+      })}</>}
       {modal === 'Create Event' && <CreateEventForm submitted={submitted} setSubmitted={setSubmitted} />}
       {['Apply to Perform', 'Attend Event', 'RSVP', 'Reserve Spot', 'Register', 'Join / RSVP', 'Get Tickets', 'Join Waitlist'].includes(modal) && <EventActionForm modal={modal} event={event} submitted={submitted} onConfirm={onConfirm} />}
     </section>
