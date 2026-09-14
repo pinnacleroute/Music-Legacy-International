@@ -386,12 +386,12 @@ function MarketplaceView({ initialRecommended, initialFocus }: { initialRecommen
     <section className="goal-support">
       <div className="section-heading-inline"><div><p className="kicker">Support for your current goals</p><h2>Preparing for more live performances?</h2></div><button onClick={() => open('Saved', featured)}>Saved <ArrowRight size={14} /></button></div>
       <div className="goal-shortcuts">{[
-        ['Recording', 'Recording & Production', Mic2, 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=500&q=80'],
-        ['Photography', 'Photography & Video', Camera, 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80'],
-        ['Marketing', 'Marketing & Promotion', BriefcaseBusiness, 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=500&q=80'],
-        ['Venue Services', 'Venues', Store, 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=500&q=80'],
-        ['Merchandise', 'Merchandise', Package, 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=500&q=80'],
-      ].map(([key, label, Icon, image]) => <button className={focus === key ? 'active' : ''} aria-pressed={focus === key} onClick={() => { setFocus(focus === key ? '' : key as string); setRecommended(false); }} key={key as string} style={{ backgroundImage: `linear-gradient(180deg,rgba(6,16,34,.18),rgba(6,16,34,.88)),url(${image})` }}><Icon size={19} /><span>{label}</span></button>)}</div>
+        { key: 'Recording', label: 'Recording & Production', icon: Mic2, image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=500&q=80' },
+        { key: 'Photography', label: 'Photography & Video', icon: Camera, image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80' },
+        { key: 'Marketing', label: 'Marketing & Promotion', icon: BriefcaseBusiness, image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=500&q=80' },
+        { key: 'Venue Services', label: 'Venues', icon: Store, image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=500&q=80' },
+        { key: 'Merchandise', label: 'Merchandise', icon: Package, image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=500&q=80' },
+      ].map(({ key, label, icon: Icon, image }) => <button className={focus === key ? 'active' : ''} aria-pressed={focus === key} onClick={() => { setFocus(focus === key ? '' : key); setRecommended(false); }} key={key} style={{ backgroundImage: `linear-gradient(180deg,rgba(6,16,34,.18),rgba(6,16,34,.88)),url(${image})` }}><Icon size={19} /><span>{label}</span></button>)}</div>
     </section>
 
     {notice && <p role="status" className="market-notice">{notice}<button aria-label="Dismiss notice" onClick={() => setNotice('')}><X size={15} /></button></p>}
