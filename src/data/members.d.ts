@@ -12,6 +12,8 @@ export interface MemberPortfolioItem {
   type: 'Video' | 'Document' | 'Schedule' | 'Press' | 'Audio';
   subtitle: string;
   thumbnail: string;
+  imageAlt?: string;
+  imagePosition?: string;
   description: string;
   details?: string;
   date?: string;
@@ -35,6 +37,8 @@ export interface MemberSocialPost {
   likes: number;
   replies: number;
   visual?: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface MemberData {
@@ -44,6 +48,11 @@ export interface MemberData {
   tone: string;
   photo: string;
   cover: string;
+  coverSrcSet?: string;
+  coverSizes?: string;
+  coverAlt?: string;
+  coverPosition?: string;
+  coverFallback?: string;
   role: string;
   memberType: string;
   location: string;
@@ -70,7 +79,7 @@ export interface MemberData {
   lookingFor: string[];
   availableFor: string[];
   groups: { id: string; name: string; relevance: string; members: string }[];
-  events: { id: string; title: string; date: string; time: string; location: string }[];
+  events: { id: string; title: string; date: string; time: string; location: string; image?: string; imageAlt?: string }[];
   opportunities: { id: string; title: string; compensation: string; matchFit: string; type: string }[];
   services: { title: string; category: string; pricing: string; description: string }[];
   recommendations: MemberRecommendation[];

@@ -153,9 +153,27 @@ export default function ProfileContent() {
         <div
           className="hero-cover-visual"
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(7, 15, 32, 0.45) 0%, rgba(7, 15, 32, 0.95) 100%), url(${profile.cover})`,
+            backgroundImage: `linear-gradient(180deg, rgba(7, 15, 32, 0.45) 0%, rgba(7, 15, 32, 0.95) 100%), url(${profile.coverFallback ?? profile.cover})`,
+            backgroundPosition: profile.coverPosition ?? 'center center',
           }}
         >
+          {profile.coverSrcSet && (
+            <picture className="hero-cover-picture">
+              <source srcSet={profile.coverSrcSet} sizes={profile.coverSizes} type="image/webp" />
+              <img
+                src={profile.cover}
+                alt={profile.coverAlt ?? `${profile.name} profile cover`}
+                className="hero-cover-img"
+                loading="eager"
+                fetchPriority="high"
+                decoding="sync"
+                style={{ objectPosition: profile.coverPosition ?? 'center center' }}
+                onError={(event) => {
+                  event.currentTarget.style.display = 'none';
+                }}
+              />
+            </picture>
+          )}
           <div className="cover-glow-accent" />
         </div>
 
@@ -586,10 +604,17 @@ export default function ProfileContent() {
                       role="button"
                       tabIndex={0}
                     >
-                      <div
-                        className="thumb-image-wrap"
-                        style={{ backgroundImage: `url(${item.thumbnail})` }}
-                      >
+                      <div className="thumb-image-wrap">
+                        <img
+                          src={item.thumbnail}
+                          alt={item.imageAlt ?? item.title}
+                          loading="lazy"
+                          decoding="async"
+                          style={{ objectPosition: item.imagePosition ?? 'center center' }}
+                          onError={(event) => {
+                            event.currentTarget.style.display = 'none';
+                          }}
+                        />
                         <div className="thumb-type-badge">
                           {item.type === 'Video' ? (
                             <Video size={13} />
@@ -650,6 +675,19 @@ export default function ProfileContent() {
                       <span className="post-tag-pill">{profile.socialPosts[0].tag}</span>
                     </div>
                     <p className="post-content-body">{profile.socialPosts[0].content}</p>
+                    {profile.socialPosts[0].image && (
+                      <div className="post-media-frame">
+                        <img
+                          src={profile.socialPosts[0].image}
+                          alt={profile.socialPosts[0].imageAlt ?? ''}
+                          loading="lazy"
+                          decoding="async"
+                          onError={(event) => {
+                            event.currentTarget.parentElement?.remove();
+                          }}
+                        />
+                      </div>
+                    )}
                     <div className="post-meta-actions">
                       <span>
                         <Heart size={13} /> {profile.socialPosts[0].likes}
@@ -698,6 +736,18 @@ export default function ProfileContent() {
                   <div className="events-compact-list">
                     {profile.events.slice(0, 2).map((evt) => (
                       <Link key={evt.id} href="/events" className="event-compact-card">
+                        {evt.image && (
+                          <img
+                            src={evt.image}
+                            alt={evt.imageAlt ?? evt.title}
+                            className="event-compact-thumb"
+                            loading="lazy"
+                            decoding="async"
+                            onError={(event) => {
+                              event.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        )}
                         <div className="event-date-block">
                           <CalendarDays size={18} />
                           <span>{evt.date}</span>
@@ -838,6 +888,19 @@ export default function ProfileContent() {
                         <span className="post-tag-pill">{post.tag}</span>
                       </div>
                       <p className="post-content-body">{post.content}</p>
+                      {post.image && (
+                        <div className="post-media-frame">
+                          <img
+                            src={post.image}
+                            alt={post.imageAlt ?? ''}
+                            loading="lazy"
+                            decoding="async"
+                            onError={(event) => {
+                              event.currentTarget.parentElement?.remove();
+                            }}
+                          />
+                        </div>
+                      )}
                       <div className="post-meta-actions">
                         <button type="button" className="like-btn" onClick={() => setNotice('Liked post.')}>
                           <Heart size={14} /> {post.likes}
@@ -885,10 +948,17 @@ export default function ProfileContent() {
                       className="portfolio-expanded-card"
                       onClick={() => setPreviewMedia(item)}
                     >
-                      <div
-                        className="expanded-thumb-wrap"
-                        style={{ backgroundImage: `url(${item.thumbnail})` }}
-                      >
+                      <div className="expanded-thumb-wrap">
+                        <img
+                          src={item.thumbnail}
+                          alt={item.imageAlt ?? item.title}
+                          loading="lazy"
+                          decoding="async"
+                          style={{ objectPosition: item.imagePosition ?? 'center center' }}
+                          onError={(event) => {
+                            event.currentTarget.style.display = 'none';
+                          }}
+                        />
                         <div className="thumb-type-badge">
                           {item.type === 'Video' ? <Video size={13} /> : <FileText size={13} />}
                           <span>{item.type}</span>
@@ -1235,7 +1305,15 @@ export default function ProfileContent() {
             </div>
 
             <div className="simulated-media-viewport">
-              <img src={previewMedia.thumbnail} alt={previewMedia.title} className="media-cover-bg" />
+              <img
+                src={previewMedia.thumbnail}
+                alt={previewMedia.imageAlt ?? previewMedia.title}
+                className="media-cover-bg"
+                style={{ objectPosition: previewMedia.imagePosition ?? 'center center' }}
+                onError={(event) => {
+                  event.currentTarget.style.display = 'none';
+                }}
+              />
               <div className="media-player-controls">
                 <button
                   type="button"

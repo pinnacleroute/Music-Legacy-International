@@ -6,7 +6,7 @@ export const canonicalProfileImages: Record<string, string> = {
   'marcus-lee': '/assets/dashboard/dashboard-marcus-lee-360.webp',
   'jessica-reed': '/assets/dashboard/dashboard-jessica-reed-360.webp',
   'nia-brooks': '/assets/messages/nia-brooks-480.webp',
-  'alex-carter': 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80',
+  'alex-carter': '/assets/profile/profile-alex-carter-avatar-360.webp',
 };
 
 export function getCanonicalProfileImage(idOrName?: string): string | null {
@@ -25,7 +25,7 @@ export function getCanonicalProfileImage(idOrName?: string): string | null {
     return '/assets/messages/nia-brooks-480.webp';
   }
   if (key === 'alex-carter' || key.includes('alex carter') || key === 'ac' || key === 'alex') {
-    return 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80';
+    return '/assets/profile/profile-alex-carter-avatar-360.webp';
   }
   return null;
 }
