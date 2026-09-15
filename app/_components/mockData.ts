@@ -1,14 +1,6 @@
 export const memberTypes = ['Fan / Audiophile','Artist / Musician','Music Industry Professional','Business / Venue / Organization'];
 export const professionalTypes = ['Producer','Booking Agent','Promoter','Photographer','Videographer','Stage Crew','Music Marketing','Mentor / Teacher','Venue Manager'];
 
-export const canonicalProfileImages: Record<string, string> = {
-  'sarah-monroe': '/assets/dashboard/dashboard-sarah-monroe-360.webp',
-  'marcus-lee': '/assets/dashboard/dashboard-marcus-lee-360.webp',
-  'jessica-reed': '/assets/dashboard/dashboard-jessica-reed-360.webp',
-  'nia-brooks': '/assets/messages/nia-brooks-480.webp',
-  'alex-carter': '/assets/profile/profile-alex-carter-avatar-360.webp',
-};
-
 export function getCanonicalProfileImage(idOrName?: string): string | null {
   if (!idOrName) return null;
   const key = idOrName.toLowerCase().trim();
@@ -106,13 +98,4 @@ export const posts = [
   { id:2,initials:'JR',name:'Jessica Reed',role:'Business / Venue / Organization',time:'1h',content:'Booking two opening acts for our June soul series in Manhattan. Looking for strong live performers with 30-minute sets.',tag:'OPPORTUNITY',visual:'venue' },
   { id:3,initials:'ML',name:'Marcus Lee',role:'Music Industry Professional · Producer',time:'3h',content:'Studio B has two evening sessions available next week. Ideal for vocal tracking, songwriting, or pre-production.',tag:'STUDIO',visual:'studio' },
   { id:4,initials:'MLI',name:'Music Legacy',role:'Community Team',time:'Yesterday',content:'Join us for a candid conversation on building relationships that lead to real music-industry opportunities.',tag:'LIVE SESSION',visual:'network' },
-];
-
-export const memberships = [
-  {name:'Fan',price:'FREE',line:'Explore and participate in the MLI community.',outcome:'Explore MLI.',bestFor:'Exploring the community and getting started.',features:['Profile & timeline access','Follow artists / businesses','Community access','Pay per download']},
-  {name:'Fan / Audiophile',price:'$19.95',line:'Deeper access to music, content, community, and artist experiences.',outcome:'Deeper access.',bestFor:'Music lovers wanting direct access to artists and content.',features:['Full community access','Upload and sell content','Fast Track access','Monetization features']},
-  {name:'Pro Silver',price:'$29.99',line:'Expanded career, collaboration, content, networking, and exposure tools.',outcome:'Accelerate your career growth.',bestFor:'Artists and musicians actively pursuing career advancement and booking.',features:['Fast Track Program','Expanded content access','Priority artist/interview features','Collaboration projects','Priority showcase access'],recommended:true},
-  {name:'Pro Gold',price:'$49.99+',line:'Expanded business visibility, industry participation, promotion, and partner access.',outcome:'Expand business reach.',bestFor:'Venues, vendors, and businesses looking for commercial reach.',features:['Expanded business profile','Vendor network listing','Sponsor opportunities','Industry connections','Expanded advertising']},
-  {name:'Pro Platinum',price:'$99.99+',line:'Premium professional access, featured visibility, custom capabilities, and deeper industry participation.',outcome:'Premium visibility.',bestFor:'Established creators and businesses demanding top-tier placement.',features:['Custom content & storage','Featured artist exposure','Premium interviews','Advanced collaboration','VIP showcase access']},
-  {name:'VIP / Alliance',price:'$495',line:'Highest-touch access, custom support, VIP exposure, strategic relationships, and tailored participation.',outcome:'Strategic alliance.',bestFor:'Strategic partners, executive leaders, and high-impact industry stakeholders.',features:['Custom content and storage','Featured visibility','VIP showcase access','Strategic partnerships','Custom agreements']},
 ];

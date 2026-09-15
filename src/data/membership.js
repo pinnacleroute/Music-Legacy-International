@@ -629,33 +629,3 @@ export function getRecommendedPlan(memberType = 'Artist / Musician') {
     recommendedName: fit.recommendedTier,
   };
 }
-
-// Entitlement Ranking and Shared Access Helpers
-export const tierRanks = {
-  fan: 0,
-  'fan-audiophile': 1,
-  'pro-silver': 2,
-  'pro-gold': 3,
-  'pro-platinum': 4,
-  'vip-alliance': 5,
-  // String name aliases
-  Fan: 0,
-  Free: 0,
-  'Fan / Audiophile': 1,
-  'Pro Silver': 2,
-  'Pro Gold': 3,
-  'Pro Platinum': 4,
-  'VIP / Alliance': 5,
-  // Backward compatibility aliases for old mock keys
-  'All Members': 0,
-  Professional: 2,
-  'Professional+': 2,
-  Pro: 2,
-  Premium: 4,
-};
-
-export function canAccessTier(userTier, requiredTier) {
-  const userRank = tierRanks[userTier] ?? 0;
-  const reqRank = tierRanks[requiredTier] ?? 0;
-  return userRank >= reqRank;
-}
