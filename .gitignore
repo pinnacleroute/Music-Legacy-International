@@ -10,6 +10,7 @@
 
 # testing
 /coverage
+/qa-responsive-*/
 
 # next.js
 /.next/
