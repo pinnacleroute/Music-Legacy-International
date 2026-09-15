@@ -362,10 +362,18 @@ export default function EventsContent() {
         ? a.sortDate - b.sortDate
         : b.sortDate - a.sortDate), [category, filters, query, saved, sort, states, view]);
 
-  const featured = eventCatalog.find(event => event.id === 'cbs-showcase')!;
-  const comingUp = visible.filter(event => event.id !== featured.id && event.status === 'Upcoming').slice(0, 4);
-  const moreEvents = visible.filter(event => ![featured.id, ...comingUp.map(item => item.id)].includes(event.id)).slice(0, 5);
-  const onDemand = eventCatalog.filter(event => ['On Demand', 'Completed'].includes(event.status));
+  const featured = visible[0] ?? null;
+  const actionEvent = featured ?? eventCatalog[0];
+  const remainingEvents = featured ? visible.filter(event => event.id !== featured.id) : [];
+  const comingUp = remainingEvents.filter(event => event.status === 'Upcoming').slice(0, 4);
+  const comingUpIds = new Set(comingUp.map(event => event.id));
+  const moreEvents = remainingEvents.filter(event => !comingUpIds.has(event.id) && !['On Demand', 'Completed'].includes(event.status)).slice(0, 5);
+  const onDemand = remainingEvents.filter(event => ['On Demand', 'Completed'].includes(event.status));
+  const featuredMetrics = featured ? [
+    featured.relatedOpportunity?.note,
+    featured.attendance,
+    featured.status,
+  ].filter(Boolean) : [];
   const liveItem = liveItems[liveIndex];
 
   function open(kind: string, event = selected) {
@@ -409,28 +417,28 @@ export default function EventsContent() {
       </div>
       <div className="events-hero-actions">
         <Link href="#mli-live" className="primary-action"><Radio size={17} /> MLI Live</Link>
-        <button className="subtle-host-action" onClick={() => open('Create Event', featured)}>Create Event +</button>
+        <button className="subtle-host-action" onClick={() => open('Create Event', actionEvent)}>Create Event +</button>
       </div>
     </header>
 
     <section className="event-toolbar" aria-label="Event discovery controls">
       <label className="event-search"><Search size={18} /><input aria-label="Search events" placeholder="Search events..." value={query} onChange={event => setQuery(event.target.value)} /></label>
-      <label><span>Type</span><select value={category} onChange={event => setCategory(event.target.value)}>{categoryTabs.map(tab => <option key={tab}>{tab}</option>)}</select></label>
-      <label><span>Location</span><select value={filters.location} onChange={event => setFilters(current => ({ ...current, location: event.target.value }))}><option>All locations</option><option>New York area</option><option>Online</option></select></label>
+      <label className="event-select-control"><span>Type</span><select value={category} onChange={event => setCategory(event.target.value)}>{categoryTabs.map(tab => <option key={tab}>{tab}</option>)}</select></label>
+      <label className="event-select-control"><span>Location</span><select value={filters.location} onChange={event => setFilters(current => ({ ...current, location: event.target.value }))}><option>All locations</option><option>New York area</option><option>Online</option></select></label>
       <button onClick={() => setFilterOpen(true)}><SlidersHorizontal size={17} /> Filters</button>
-      <label className="sort-control"><span>Sort</span><select value={sort} onChange={event => setSort(event.target.value)}><option>Recommended</option><option>Upcoming Soonest</option><option>Recently Added</option></select></label>
+      <label className="sort-control event-select-control"><span>Sort</span><select value={sort} onChange={event => setSort(event.target.value)}><option>Recommended</option><option>Upcoming Soonest</option><option>Recently Added</option></select></label>
     </section>
 
     <div className="events-tabs tabs" aria-label="Event categories">{categoryTabs.map(tab => <button aria-pressed={category === tab} className={category === tab ? 'active' : ''} onClick={() => setCategory(tab)} key={tab}>{tab}</button>)}</div>
 
     <div className="event-view-row">
-      <label>View: <select value={view} onChange={event => setView(event.target.value)}>{['For You', 'Saved', 'RSVP’d', 'Applied', 'Past'].map(option => <option key={option}>{option}</option>)}</select></label>
-      <button onClick={() => open('Your Events', featured)}>Your Events <ArrowRight size={14} /></button>
+      <label className="event-view-select">View: <select value={view} onChange={event => setView(event.target.value)}>{['For You', 'Saved', 'RSVP’d', 'Applied', 'Past'].map(option => <option key={option}>{option}</option>)}</select></label>
+      <button onClick={() => open('Your Events', actionEvent)}>Your Events <ArrowRight size={14} /></button>
     </div>
 
     {notice && <p className="events-notice" role="status">{notice}<button aria-label="Dismiss notice" onClick={() => setNotice('')}><X size={15} /></button></p>}
 
-    <section className="featured-event" aria-labelledby="featured-event-title">
+    {featured ? <section className="featured-event" aria-labelledby="featured-event-title">
       <EventImage event={featured} />
       <div className="featured-event-copy">
         <p className="mini-label">Featured for you</p>
@@ -439,7 +447,7 @@ export default function EventsContent() {
         <p>{featured.date} · {featured.location}</p>
         <p className="featured-organizer">Hosted by {featured.organizer}</p>
         <blockquote>{featured.matchReason}</blockquote>
-        <div className="featured-metrics"><b>{featured.matchLabel}</b><span>Applications close May 18</span><span>2 performer slots remaining</span></div>
+        <div className="featured-metrics"><b>{featured.matchLabel}</b>{featuredMetrics.map(metric => <span key={metric}>{metric}</span>)}</div>
         <div className="featured-social"><AttendeeStack people={featured.people} /><span>{featured.social}</span></div>
         <div className="featured-actions">
           <button className="primary-action" onClick={() => handlePrimary(featured)}>{featured.primaryCta} <ArrowRight size={15} /></button>
@@ -447,11 +455,11 @@ export default function EventsContent() {
           <button aria-pressed={saved.includes(featured.id)} onClick={() => saveEvent(featured.id)}><Bookmark size={15} fill={saved.includes(featured.id) ? 'currentColor' : 'none'} /> {saved.includes(featured.id) ? 'Saved' : 'Save'}</button>
         </div>
       </div>
-    </section>
+    </section> : <div className="events-empty"><CalendarDays /><h2>No events in this view.</h2><p>Try a different category or clear your filters.</p><button onClick={resetFilters}>Clear filters</button></div>}
 
     <section className="events-section">
       <div className="section-heading-inline"><div><p className="kicker">This week</p><h2>Coming Up</h2></div><p>Events with the strongest timing, network, and goal fit.</p></div>
-      <div className="coming-events">{comingUp.map(event => <CompactEventCard event={event} key={event.id} saved={saved.includes(event.id)} state={states[event.id]} reminder={reminders[event.id]} onOpen={open} onSave={saveEvent} onAction={handlePrimary} />)}</div>
+      {comingUp.length ? <div className="coming-events">{comingUp.map(event => <CompactEventCard event={event} key={event.id} saved={saved.includes(event.id)} state={states[event.id]} reminder={reminders[event.id]} onOpen={open} onSave={saveEvent} onAction={handlePrimary} />)}</div> : <p className="events-muted">No upcoming events match this view yet.</p>}
     </section>
 
     <section className="events-section">
@@ -477,10 +485,10 @@ export default function EventsContent() {
       </div>
     </section>
 
-    <section className="events-section on-demand-events">
+    {onDemand.length > 0 && <section className="events-section on-demand-events">
       <div className="section-heading-inline"><div><p className="kicker">On demand / past</p><h2>Useful after the room closes.</h2></div></div>
       <div className="event-list">{onDemand.map(event => <EventListRow event={event} state={states[event.id]} saved={saved.includes(event.id)} onOpen={open} onSave={saveEvent} onAction={handlePrimary} key={event.id} />)}</div>
-    </section>
+    </section>}
 
     {filterOpen && <FilterDrawer filters={filters} setFilters={setFilters} visibleCount={visible.length} onClose={() => setFilterOpen(false)} onClear={resetFilters} />}
     {modal && <EventModal
